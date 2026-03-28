@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultural Community Organization | Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: #0f2444;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 0;
+        }
+
+        .logo-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e74c3c 25%, #f39c12 25%, #f39c12 50%, #27ae60 50%, #27ae60 75%, #3498db 75%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-circle::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #0f2444;
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 5px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 25px 18px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: #f39c12;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #f39c12;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .hero-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e74c3c, #9b59b6, #3498db);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff6b6b 0%, #feca57 25%, #48dbfb 50%, #ff9ff3 75%, #54a0ff 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero-placeholder-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: rgba(0,0,0,0.3);
+            padding: 20px 40px;
+            border-radius: 10px;
+            border: 2px dashed rgba(255,255,255,0.5);
+        }
+
+        .hero-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-nav:hover {
+            background: rgba(0,0,0,0.8);
+        }
+
+        .hero-nav.prev { left: 20px; }
+        .hero-nav.next { right: 20px; }
+
+        .hero-dots {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            display: flex;
+            gap: 10px;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        /* Welcome Section */
+        .welcome {
+            padding: 80px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .welcome h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #0f2444;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .welcome h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #e74c3c, #f39c12, #27ae60);
+        }
+
+        .welcome p {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        /* Info Cards */
+        .info-section {
+            padding: 60px 40px;
+            background: #f8f9fa;
+        }
+
+        .info-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .info-card:nth-child(1) .card-header { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .info-card:nth-child(2) .card-header { background: linear-gradient(135deg, #f39c12, #d68910); }
+        .info-card:nth-child(3) .card-header { background: linear-gradient(135deg, #27ae60, #1e8449); }
+
+        .card-header {
+            padding: 30px;
+            color: white;
+            text-align: center;
+        }
+
+        .card-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .card-placeholder {
+            height: 150px;
+            background: linear-gradient(135deg, #ecf0f1, #bdc3c7);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+            font-weight: 500;
+            margin-bottom: 15px;
+            border: 2px dashed #bdc3c7;
+        }
+
+        .card-body p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Events Preview */
+        .events-preview {
+            padding: 80px 40px;
+            background: linear-gradient(135deg, #0f2444 0%, #1a3a5c 100%);
+            color: white;
+        }
+
+        .events-preview h2 {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+
+        .events-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .event-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .event-card:hover {
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.02);
+        }
+
+        .event-date {
+            display: inline-block;
+            background: #f39c12;
+            color: #0f2444;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .event-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .event-card p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        /* Contact Strip */
+        .contact-strip {
+            background: linear-gradient(90deg, #e74c3c, #f39c12, #27ae60, #3498db, #9b59b6);
+            padding: 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .contact-strip h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .contact-strip p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a1628;
+            color: white;
+            padding: 60px 40px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #f39c12;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #f39c12;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav-links a {
+                padding: 25px 12px;
+                font-size: 0.8rem;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero {
+                height: 400px;
+            }
+            
+            .welcome h2 {
+                font-size: 2rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-circle"></div>
+                <span class="logo-text">community.org</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="#">Committee</a></li>
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">Sponsors</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Membership</a></li>
+                <li><a href="#">Member Only</a></li>
+            </ul>
+            <div class="social-icons">
+                <a href="#">f</a>
+                <a href="#">𝕏</a>
+                <a href="#">in</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-slide">
+            <div class="hero-placeholder">
+                <div class="hero-placeholder-text">
+                    🎉 Hero Image Placeholder<br>
+                    <small>Cultural celebration photos go here</small>
+                </div>
+            </div>
+        </div>
+        <button class="hero-nav prev">‹</button>
+        <button class="hero-nav next">›</button>
+        <div class="hero-dots">1 / 2</div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="welcome">
+        <h2>Welcome to Our Community</h2>
+        <p>We are a vibrant non-profit organization dedicated to preserving and celebrating our rich cultural heritage. Established with a vision to unite families and promote traditions, we organize festivals, cultural events, and community gatherings throughout the year.</p>
+        <p>Join us in celebrating the colors, music, dance, and traditions that make our community special. Together, we create memories that last a lifetime.</p>
+    </section>
+
+    <!-- Info Cards -->
+    <section class="info-section">
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="card-header">
+                    <h3>🎭 Cultural Events</h3>
+                </div>
+                <div class="card-body">
+                    <div class="card-placeholder">Image Placeholder</div>
+                    <p>Experience the joy of traditional festivals, dance performances, and music celebrations throughout the year.</p>
+                </div>
+            </div>
+            <div class="info-card">
+                <div class="card-header">
+                    <h3>👨‍👩‍👧‍👦 Family Activities</h3>
+                </div>
+                <div class="card-body">
+                    <div class="card-placeholder">Image Placeholder</div>
+                    <p>Fun-filled activities for all ages, from children's programs to senior gatherings. Everyone is welcome!</p>
+                </div>
+            </div>
+            <div class="info-card">
+                <div class="card-header">
+                    <h3>🤝 Community Service</h3>
+                </div>
+                <div class="card-body">
+                    <div class="card-placeholder">Image Placeholder</div>
+                    <p>We believe in giving back. Join our volunteer programs and charity initiatives in the local community.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Preview -->
+    <section class="events-preview">
+        <h2>Upcoming Events</h2>
+        <div class="events-grid">
+            <div class="event-card">
+                <span class="event-date">April 2026</span>
+                <h3>Spring Festival Celebration</h3>
+                <p>Join us for a colorful celebration of spring with traditional dances, music, and delicious food.</p>
+            </div>
+            <div class="event-card">
+                <span class="event-date">May 2026</span>
+                <h3>Annual Cultural Mela</h3>
+                <p>Our biggest event of the year featuring performances, art exhibitions, and community activities.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Strip -->
+    <section class="contact-strip">
+        <h3>Get In Touch With Us</h3>
+        <p>📧 info@community.org | 📞 (555) 123-4567 | A Non-Profit Organization</p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>A non-profit organization dedicated to preserving cultural heritage and building community connections.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="events.html">Events</a>
+                <a href="#">Gallery</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h4>Get Involved</h4>
+                <a href="#">Become a Member</a>
+                <a href="#">Volunteer</a>
+                <a href="#">Sponsor Us</a>
+                <a href="#">Donate</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <p>📍 Jacksonville, FL</p>
+                <p>📧 info@community.org</p>
+                <p>📞 (555) 123-4567</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Cultural Community Organization. All Rights Reserved. | FEI/EIN Number XX-XXXXXXX</p>
+        </div>
+    </footer>
+</body>
+</html>
