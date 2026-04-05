@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sponsors — PAJI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Hind:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy:        #1C2B4A;
+            --navy-dark:   #111C30;
+            --saffron:     #D4531A;
+            --saffron-lt:  #E8742E;
+            --green:       #2A6343;
+            --green-lt:    #368055;
+            --gold:        #B8960C;
+            --gold-lt:     #D4AE22;
+            --cream:       #FDF7EE;
+            --cream-dark:  #F0E8D6;
+            --text:        #1A1A2E;
+            --muted:       #5E5E72;
+            --border:      #DDD5C5;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Hind', sans-serif;
+            color: var(--text);
+            background: var(--cream);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Yeseva One', serif; font-weight: 400; line-height: 1.2; }
+
+        /* ── TOPBAR ── */
+        .topbar {
+            background: var(--navy-dark);
+            color: rgba(255,255,255,0.72);
+            font-size: 0.8rem;
+            padding: 7px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .topbar a { color: var(--gold-lt); text-decoration: none; }
+        .topbar a:hover { text-decoration: underline; }
+
+        /* ── NAVBAR ── */
+        .navbar {
+            background: var(--navy);
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            border-bottom: 3px solid var(--saffron);
+        }
+        .nav-inner {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 13px 0;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+        .brand-mark {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+        .brand-mark::before {
+            content: '';
+            position: absolute; inset: 0;
+            border-radius: 50%;
+            background: conic-gradient(var(--saffron) 0deg 120deg, #fff 120deg 240deg, var(--green) 240deg 360deg);
+        }
+        .brand-mark::after {
+            content: '';
+            position: absolute; inset: 10px;
+            border-radius: 50%;
+            background: var(--navy);
+            z-index: 1;
+        }
+        .brand-name-main {
+            display: block;
+            color: #fff;
+            font-family: 'Yeseva One', serif;
+            font-size: 1.35rem;
+            line-height: 1;
+            letter-spacing: 0.5px;
+        }
+        .brand-name-sub {
+            display: block;
+            color: var(--gold-lt);
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-top: 2px;
+        }
+        .nav-links { list-style: none; display: flex; }
+        .nav-links a {
+            display: block;
+            color: rgba(255,255,255,0.82);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 20px 15px;
+            position: relative;
+            transition: color 0.2s;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 15px; right: 15px;
+            height: 3px;
+            background: var(--gold-lt);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.25s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: #fff; }
+        .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            background: var(--navy);
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-header::after {
+            content: '';
+            position: absolute;
+            right: 0; top: 0; bottom: 0;
+            width: 38%;
+            background: linear-gradient(135deg, transparent, rgba(184,150,12,0.15));
+            pointer-events: none;
+        }
+        .page-header-inner {
+            max-width: 1320px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .page-header-breadcrumb {
+            color: var(--gold-lt);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        .page-header-breadcrumb a { color: var(--gold-lt); text-decoration: none; }
+        .page-header-breadcrumb a:hover { text-decoration: underline; }
+        .page-header h1 { font-size: 2.8rem; color: #fff; margin-bottom: 8px; }
+        .page-header p  { color: rgba(255,255,255,0.65); font-size: 1rem; }
+
+        /* ── RULE ── */
+        .rule-tricolor { display: flex; height: 4px; width: 80px; border-radius: 2px; overflow: hidden; }
+        .rule-tricolor span:nth-child(1) { flex: 1; background: var(--saffron); }
+        .rule-tricolor span:nth-child(2) { flex: 1; background: #fff; border: 1px solid var(--border); }
+        .rule-tricolor span:nth-child(3) { flex: 1; background: var(--green); }
+
+        /* ── INTRO ── */
+        .intro {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 64px 30px 50px;
+            text-align: center;
+        }
+        .intro h2 { font-size: 2.1rem; color: var(--navy); margin-bottom: 6px; }
+        .intro .rule-tricolor { margin: 12px auto 20px; }
+        .intro p { color: var(--muted); max-width: 680px; margin: 0 auto; font-size: 0.97rem; }
+
+        /* ── SPONSOR TIERS ── */
+        .sponsors-section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 30px 80px;
+        }
+
+        .tier-heading {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 28px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .tier-heading h3 { font-size: 1.5rem; color: var(--navy); }
+
+        .tier-badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 14px;
+            border-radius: 2px;
+            color: #fff;
+        }
+
+        .tier-badge.gold-tier    { background: var(--gold);    color: #1a1a1a; }
+        .tier-badge.silver-tier  { background: #8a96a3; }
+        .tier-badge.bronze-tier  { background: #a0633a; }
+        .tier-badge.community    { background: var(--green); }
+
+        .tier-block { margin-bottom: 60px; }
+
+        /* ── SPONSOR ROW ── */
+        .sponsor-row {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition: box-shadow 0.25s, border-color 0.25s;
+        }
+
+        .sponsor-row:hover {
+            box-shadow: 0 6px 28px rgba(28,43,74,0.1);
+            border-color: #c4b8a4;
+        }
+
+        /* Tier-based left accent */
+        .tier-block:nth-child(1) .sponsor-row { border-left: 5px solid var(--gold); }
+        .tier-block:nth-child(2) .sponsor-row { border-left: 5px solid #8a96a3; }
+        .tier-block:nth-child(3) .sponsor-row { border-left: 5px solid #a0633a; }
+        .tier-block:nth-child(4) .sponsor-row { border-left: 5px solid var(--green); }
+
+        /* Logo area */
+        .sponsor-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 28px 20px;
+            border-right: 1px solid var(--border);
+            background: var(--cream);
+            gap: 10px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .sponsor-logo:hover { background: var(--cream-dark); }
+
+        /* ── IMGUR-COMPATIBLE LOGO FRAME ──
+           To add a logo: set src="https://i.imgur.com/YOURCODE.jpeg" on the <img> tag.
+           The placeholder disappears automatically when the image loads.               */
+        .logo-frame {
+            width: 140px;
+            height: 88px;
+            position: relative;
+            overflow: hidden;
+            background: #fff;
+            border: 2px dashed var(--border);
+            border-radius: 3px;
+        }
+
+        .logo-frame .logo-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 8px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1;
+        }
+        .logo-frame .logo-img.loaded { opacity: 1; }
+        .logo-frame .logo-ph {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+            font-size: 0.72rem;
+            font-weight: 500;
+            text-align: center;
+            padding: 8px;
+        }
+        .logo-frame.loaded .logo-ph { display: none; }
+
+        .sponsor-logo-label {
+            font-size: 0.68rem;
+            color: #bbb;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Info area */
+        .sponsor-info {
+            padding: 28px 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .sponsor-name-link {
+            display: inline-block;
+            font-family: 'Yeseva One', serif;
+            font-size: 1.35rem;
+            color: var(--navy);
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: color 0.2s;
+        }
+
+        .sponsor-name-link:hover { color: var(--saffron); text-decoration: underline; }
+
+        .sponsor-desc {
+            font-size: 0.92rem;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 16px;
+            max-width: 600px;
+        }
+
+        .sponsor-website {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--saffron);
+            text-decoration: none;
+            border-bottom: 1.5px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .sponsor-website:hover { border-color: var(--saffron); }
+
+        .sponsor-website::after { content: ' ↗'; font-size: 0.85rem; }
+
+        /* ── BECOME A SPONSOR ── */
+        .sponsor-cta {
+            background: var(--navy);
+            padding: 70px 40px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .sponsor-cta h2 { font-size: 2.1rem; margin-bottom: 14px; }
+        .sponsor-cta p  { opacity: 0.75; max-width: 580px; margin: 0 auto 28px; font-size: 0.97rem; }
+
+        .tiers-preview {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+
+        .tier-pill {
+            padding: 10px 22px;
+            border-radius: 3px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        .tier-pill.gold   { background: var(--gold);   color: #1a1a1a; }
+        .tier-pill.silver { background: #8a96a3;        color: #fff; }
+        .tier-pill.bronze { background: #a0633a;        color: #fff; }
+        .tier-pill.comm   { background: var(--green);   color: #fff; }
+
+        .btn {
+            display: inline-block;
+            font-family: 'Hind', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 13px 30px;
+            border-radius: 3px;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-saffron { background: var(--saffron); color: #fff; }
+        .btn-saffron:hover { background: var(--saffron-lt); }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: var(--navy-dark);
+            color: rgba(255,255,255,0.72);
+            padding: 70px 40px 32px;
+        }
+        .footer-inner {
+            max-width: 1320px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+        }
+        .footer-brand h3 { font-family: 'Yeseva One', serif; font-size: 1.4rem; color: #fff; margin-bottom: 6px; }
+        .footer-brand p  { font-size: 0.88rem; line-height: 1.7; margin-top: 10px; }
+        .footer-col h4 {
+            font-family: 'Yeseva One', serif;
+            color: var(--gold-lt);
+            font-size: 1rem;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .footer-col a, .footer-col p {
+            display: block;
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            margin-bottom: 9px;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover { color: var(--gold-lt); }
+        .footer-divider {
+            max-width: 1320px;
+            margin: 40px auto 0;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.35);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .sponsor-row { grid-template-columns: 1fr; }
+            .sponsor-logo { border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; justify-content: flex-start; padding: 20px 24px; gap: 16px; }
+            .footer-inner { grid-template-columns: 1fr 1fr; }
+            .nav-links a { padding: 20px 10px; font-size: 0.72rem; }
+        }
+        @media (max-width: 768px) {
+            .topbar { flex-direction: column; gap: 4px; padding: 8px 20px; text-align: center; }
+            .nav-inner { flex-direction: column; padding: 14px 20px; gap: 6px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .page-header { padding: 46px 24px; }
+            .page-header h1 { font-size: 2rem; }
+            .sponsors-section { padding: 0 18px 60px; }
+            .footer-inner { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+    <span>Serving Jacksonville's Punjabi Community Since 1990</span>
+    <span>📧 <a href="#">info@paji.org</a> &nbsp;|&nbsp; 📞 (904) 555-0100</span>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-brand">
+            <div class="brand-mark"></div>
+            <div>
+                <span class="brand-name-main">PAJI</span>
+                <span class="brand-name-sub">Punjabi Association of Jacksonville Indians</span>
+            </div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="committee.html">Committee</a></li>
+            <li><a href="#">Gallery</a></li>
+            <li><a href="sponsors.html" class="active">Sponsors</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Membership</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+    <div class="page-header-inner">
+        <div class="page-header-breadcrumb"><a href="index.html">Home</a> &rsaquo; Sponsors</div>
+        <h1>Our Sponsors</h1>
+        <p>Grateful partners who make our community events and programs possible.</p>
+    </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro">
+    <h2>Thank You to Our Supporters</h2>
+    <div class="rule-tricolor"><span></span><span></span><span></span></div>
+    <p>PAJI's events and community programs are made possible through the generous support of our sponsors. We are proud to partner with businesses and individuals who share our commitment to culture, family, and community.</p>
+</div>
+
+<!--
+    SPONSORS SECTION
+    For each sponsor, set the logo image src to an imgur URL:
+      <img src="https://i.imgur.com/YOURCODE.jpeg" ...>
+    And update the href on .sponsor-logo and .sponsor-website to the real website URL.
+-->
+<section class="sponsors-section">
+
+    <!-- GOLD TIER -->
+    <div class="tier-block">
+        <div class="tier-heading">
+            <h3>Gold Sponsors</h3>
+            <span class="tier-badge gold-tier">Gold</span>
+        </div>
+
+        <div class="sponsor-row">
+            <!-- Logo: set href to sponsor website, set img src to imgur logo URL -->
+            <a href="#" class="sponsor-logo" title="Visit Sponsor Website">
+                <div class="logo-frame">
+                    <img src="" alt="Sponsor Logo" class="logo-img"
+                         onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
+                         onerror="this.remove()">
+                    <div class="logo-ph">Logo Placeholder</div>
+                </div>
+                <span class="sponsor-logo-label">Click to visit</span>
+            </a>
+            <div class="sponsor-info">
+                <a href="#" class="sponsor-name-link">Sponsor Name</a>
+                <p class="sponsor-desc">Placeholder description. This sponsor has been a proud supporter of PAJI for many years. They are a leading local business committed to serving the Jacksonville community. Replace this text with a brief description of the sponsor's business and why they support PAJI.</p>
+                <a href="#" class="sponsor-website">Visit Website</a>
+            </div>
+        </div>
+
+        <div class="sponsor-row">
+            <a href="#" class="sponsor-logo" title="Visit Sponsor Website">
+                <div class="logo-frame">
+                    <img src="" alt="Sponsor Logo" class="logo-img"
+                         onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
+                         onerror="this.remove()">
+                    <div class="logo-ph">Logo Placeholder</div>
+                </div>
+                <span class="sponsor-logo-label">Click to visit</span>
+            </a>
+            <div class="sponsor-info">
+                <a href="#" class="sponsor-name-link">Sponsor Name</a>
+                <p class="sponsor-desc">Placeholder description. A valued Gold Sponsor of PAJI, this organization has made a significant contribution to making our annual events possible. Their support helps bring our community together year after year.</p>
+                <a href="#" class="sponsor-website">Visit Website</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SILVER TIER -->
+    <div class="tier-block">
+        <div class="tier-heading">
+            <h3>Silver Sponsors</h3>
+            <span class="tier-badge silver-tier">Silver</span>
+        </div>
+
+        <div class="sponsor-row">
+            <a href="#" class="sponsor-logo" title="Visit Sponsor Website">
+                <div class="logo-frame">
+                    <img src="" alt="Sponsor Logo" class="logo-img"
+                         onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
+                         onerror="this.remove()">
+                    <div class="logo-ph">Logo Placeholder</div>
+                </div>
+                <span class="sponsor-logo-label">Click to visit</span>
+            </a>
+            <div class="sponsor-info">
+                <a href="#" class="sponsor-name-link">Sponsor Name</a>
+                <p class="sponsor-desc">Placeholder description. This Silver Sponsor plays an important role in supporting PAJI's cultural programs. Their generosity helps us provide memorable experiences for families throughout Jacksonville.</p>
+                <a href="#" class="sponsor-website">Visit Website</a>
+            </div>
+        </div>
+
+        <div class="sponsor-row">
+            <a href="#" class="sponsor-logo" title="Visit Sponsor Website">
+                <div class="logo-frame">
+                    <img src="" alt="Sponsor Logo" class="logo-img"
+                         onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
+                         onerror="this.remove()">
+                    <div class="logo-ph">Logo Placeholder</div>
+                </div>
+                <span class="sponsor-logo-label">Click to visit</span>
+            </a>
+            <div class="sponsor-info">
+                <a href="#" class="sponsor-name-link">Sponsor Name</a>
+                <p class="sponsor-desc">Placeholder description. A trusted Silver Sponsor whose continued support allows PAJI to grow its community outreach and youth programs. We are grateful for their partnership and dedication to our mission.</p>
+                <a href="#" class="sponsor-website">Visit Website</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- BRONZE TIER -->
+    <div class="tier-block">
+        <div class="tier-heading">
+            <h3>Bronze Sponsors</h3>
+            <span class="tier-badge bronze-tier">Bronze</span>
+        </div>
+
+        <div class="sponsor-row">
+            <a href="#" class="sponsor-logo" title="Visit Sponsor Website">
+                <div class="logo-frame">
+                    <img src="" alt="Sponsor Logo" class="logo-img"
+                         onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
+                         onerror="this.remove()">
+                    <div class="logo-ph">Logo Placeholder</div>
+                </div>
+                <span class="sponsor-logo-label">Click to visit</span>
+            </a>
+            <div class="sponsor-info">
+                <a href="#" class="sponsor-name-link">Sponsor Name</a>
+                <p class="sponsor-desc">Placeholder description. This Bronze Sponsor has shown tremendous goodwill toward the PAJI community. Their support is deeply appreciated and contributes to the success of our events.</p>
+                <a href="#" class="sponsor-website">Visit Website</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMMUNITY PARTNERS -->
+    <div class="tier-block">
+        <div class="tier-heading">
+            <h3>Community Partners</h3>
+            <span class="tier-badge community">Partner</span>
+        </div>
+
+        <div class="sponsor-row">
+            <a href="#" class="sponsor-logo" title="Visit Partner Website">
+                <div class="logo-frame">
+                    <img src="" alt="Partner Logo" class="logo-img"
+                         onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
+                         onerror="this.remove()">
+                    <div class="logo-ph">Logo Placeholder</div>
+                </div>
+                <span class="sponsor-logo-label">Click to visit</span>
+            </a>
+            <div class="sponsor-info">
+                <a href="#" class="sponsor-name-link">Partner Organization</a>
+                <p class="sponsor-desc">Placeholder description. A community partner organization that collaborates with PAJI on outreach initiatives, charitable programs, and shared events. Together we serve Jacksonville's diverse communities.</p>
+                <a href="#" class="sponsor-website">Visit Website</a>
+            </div>
+        </div>
+
+        <div class="sponsor-row">
+            <a href="#" class="sponsor-logo" title="Visit Partner Website">
+                <div class="logo-frame">
+                    <img src="" alt="Partner Logo" class="logo-img"
+                         onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
+                         onerror="this.remove()">
+                    <div class="logo-ph">Logo Placeholder</div>
+                </div>
+                <span class="sponsor-logo-label">Click to visit</span>
+            </a>
+            <div class="sponsor-info">
+                <a href="#" class="sponsor-name-link">Partner Organization</a>
+                <p class="sponsor-desc">Placeholder description. This community partner shares our values of cultural celebration and community service. We are proud to work alongside them in making Jacksonville a more vibrant and connected city.</p>
+                <a href="#" class="sponsor-website">Visit Website</a>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- BECOME A SPONSOR CTA -->
+<div class="sponsor-cta">
+    <h2>Become a Sponsor</h2>
+    <p>Sponsoring PAJI is a meaningful way to support our community and reach hundreds of engaged Punjabi families across Jacksonville. Sponsorship packages are available at multiple levels.</p>
+    <div class="tiers-preview">
+        <span class="tier-pill gold">Gold</span>
+        <span class="tier-pill silver">Silver</span>
+        <span class="tier-pill bronze">Bronze</span>
+        <span class="tier-pill comm">Community Partner</span>
+    </div>
+    <a href="#" class="btn btn-saffron">Enquire About Sponsorship</a>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <h3>PAJI</h3>
+            <p style="color: var(--gold-lt); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Punjabi Association of Jacksonville Indians</p>
+            <p>A non-profit organization proudly serving Jacksonville's Punjabi community since 1990.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Navigate</h4>
+            <a href="index.html">Home</a>
+            <a href="events.html">Events</a>
+            <a href="committee.html">Committee</a>
+            <a href="sponsors.html">Sponsors</a>
+            <a href="#">Gallery</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="footer-col">
+            <h4>Get Involved</h4>
+            <a href="#">Become a Member</a>
+            <a href="#">Volunteer</a>
+            <a href="#">Sponsor Us</a>
+            <a href="#">Donate</a>
+        </div>
+        <div class="footer-col">
+            <h4>Contact</h4>
+            <p>📍 Jacksonville, FL</p>
+            <p>📧 info@paji.org</p>
+            <p>📞 (904) 555-0100</p>
+        </div>
+    </div>
+    <div class="footer-divider">
+        <span>&copy; 2026 Punjabi Association of Jacksonville Indians. All rights reserved.</span>
+        <span>Non-Profit 501(c)(3)</span>
+    </div>
+</footer>
+
+</body>
+</html>
