@@ -100,6 +100,16 @@
             background: var(--navy);
             z-index: 1;
         }
+        .brand-logo-img {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 2;
+        }
+        .brand-logo-img.loaded { opacity: 1; }
         .brand-name-main {
             display: block;
             color: #fff;
@@ -553,14 +563,25 @@
 <!-- TOPBAR -->
 <div class="topbar">
     <span>Serving Jacksonville's Punjabi Community Since 2021</span>
-    <span>info@paji.org &nbsp;&middot;&nbsp; (904) 555-0100</span>
+    <span>
+        <a href="mailto:paji4jax@gmail.com">paji4jax@gmail.com</a>
+        &nbsp;&middot;&nbsp;
+        <a href="https://www.facebook.com/groups/paji4jax" target="_blank" rel="noopener">Facebook</a>
+        &nbsp;&middot;&nbsp;
+        <a href="https://www.instagram.com/jaxpaji/" target="_blank" rel="noopener">Instagram</a>
+    </span>
 </div>
 
 <!-- NAVBAR -->
 <nav class="navbar">
     <div class="nav-inner">
         <a href="index.html" class="nav-brand">
-            <div class="brand-mark"></div>
+            <div class="brand-mark">
+                    <!-- PAJI Logo: set src="https://i.imgur.com/YOURCODE.png" to display official seal -->
+                    <img src="" alt="PAJI" class="brand-logo-img"
+                         onload="this.classList.add('loaded')"
+                         onerror="this.remove()">
+                </div>
             <div>
                 <span class="brand-name-main">PAJI</span>
                 <span class="brand-name-sub">Punjabi Association of Jacksonville Indians</span>
@@ -623,13 +644,13 @@
                     <img src="" alt="Sponsor logo" class="logo-img"
                          onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
                          onerror="this.remove()">
-                    <div class="logo-ph">Logo Placeholder</div>
+                    <div class="logo-ph">Logo</div>
                 </div>
                 <span class="logo-visit-label">Visit Website</span>
             </a>
             <div class="sponsor-info">
                 <a href="#" class="sponsor-name-link">Sponsor Name</a>
-                <p class="sponsor-desc">Placeholder description. This sponsor has been a proud supporter of PAJI for years. They are a leading local business committed to serving the Jacksonville community. Replace this with a short description of who they are and why they support PAJI.</p>
+                <p class="sponsor-desc">A proud Gold Sponsor and longstanding supporter of PAJI's annual celebrations. Their generous contribution helps us bring authentic Punjabi culture to Jacksonville and ensures our events remain accessible to all families in our community.</p>
                 <a href="#" class="sponsor-website">Visit Website</a>
             </div>
         </div>
@@ -640,13 +661,13 @@
                     <img src="" alt="Sponsor logo" class="logo-img"
                          onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
                          onerror="this.remove()">
-                    <div class="logo-ph">Logo Placeholder</div>
+                    <div class="logo-ph">Logo</div>
                 </div>
                 <span class="logo-visit-label">Visit Website</span>
             </a>
             <div class="sponsor-info">
                 <a href="#" class="sponsor-name-link">Sponsor Name</a>
-                <p class="sponsor-desc">Placeholder description. A valued Gold Sponsor whose significant contribution makes our annual events possible. Their support helps bring the Jacksonville Punjabi community together year after year.</p>
+                <p class="sponsor-desc">A valued Gold Sponsor whose significant contribution makes our largest events possible. Their commitment to community reflects the shared values of family, cultural pride, and service that define everything PAJI stands for.</p>
                 <a href="#" class="sponsor-website">Visit Website</a>
             </div>
         </div>
@@ -665,13 +686,13 @@
                     <img src="" alt="Sponsor logo" class="logo-img"
                          onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
                          onerror="this.remove()">
-                    <div class="logo-ph">Logo Placeholder</div>
+                    <div class="logo-ph">Logo</div>
                 </div>
                 <span class="logo-visit-label">Visit Website</span>
             </a>
             <div class="sponsor-info">
                 <a href="#" class="sponsor-name-link">Sponsor Name</a>
-                <p class="sponsor-desc">Placeholder description. This Silver Sponsor plays an important role in supporting PAJI's cultural programs. Their generosity helps us provide memorable experiences for families throughout Jacksonville.</p>
+                <p class="sponsor-desc">An important contributor to PAJI's cultural programming, this Silver Sponsor's generosity extends our reach and allows us to provide enriching experiences for Punjabi families throughout the Jacksonville area.</p>
                 <a href="#" class="sponsor-website">Visit Website</a>
             </div>
         </div>
@@ -682,13 +703,13 @@
                     <img src="" alt="Sponsor logo" class="logo-img"
                          onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
                          onerror="this.remove()">
-                    <div class="logo-ph">Logo Placeholder</div>
+                    <div class="logo-ph">Logo</div>
                 </div>
                 <span class="logo-visit-label">Visit Website</span>
             </a>
             <div class="sponsor-info">
                 <a href="#" class="sponsor-name-link">Sponsor Name</a>
-                <p class="sponsor-desc">Placeholder description. A trusted Silver Sponsor whose continued support allows PAJI to grow its community outreach and youth programs. We are grateful for their partnership and dedication to our mission.</p>
+                <p class="sponsor-desc">A trusted Silver Sponsor whose continued investment allows PAJI to grow its community outreach and youth programs year after year. We are grateful for their partnership and belief in our mission.</p>
                 <a href="#" class="sponsor-website">Visit Website</a>
             </div>
         </div>
@@ -707,13 +728,13 @@
                     <img src="" alt="Sponsor logo" class="logo-img"
                          onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
                          onerror="this.remove()">
-                    <div class="logo-ph">Logo Placeholder</div>
+                    <div class="logo-ph">Logo</div>
                 </div>
                 <span class="logo-visit-label">Visit Website</span>
             </a>
             <div class="sponsor-info">
                 <a href="#" class="sponsor-name-link">Sponsor Name</a>
-                <p class="sponsor-desc">Placeholder description. This Bronze Sponsor has shown tremendous goodwill toward the PAJI community. Their support is deeply appreciated and contributes directly to the success of our events and programs.</p>
+                <p class="sponsor-desc">A valued Bronze Sponsor who has shown genuine goodwill toward the PAJI community. Their support is deeply appreciated and contributes directly to the success of our events and outreach programs throughout the year.</p>
                 <a href="#" class="sponsor-website">Visit Website</a>
             </div>
         </div>
@@ -732,13 +753,13 @@
                     <img src="" alt="Partner logo" class="logo-img"
                          onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
                          onerror="this.remove()">
-                    <div class="logo-ph">Logo Placeholder</div>
+                    <div class="logo-ph">Logo</div>
                 </div>
                 <span class="logo-visit-label">Visit Website</span>
             </a>
             <div class="sponsor-info">
                 <a href="#" class="sponsor-name-link">Partner Organization</a>
-                <p class="sponsor-desc">Placeholder description. A community partner that collaborates with PAJI on outreach initiatives, charitable programs, and shared events. Together we serve Jacksonville's diverse communities with purpose.</p>
+                <p class="sponsor-desc">A community partner that collaborates with PAJI on outreach initiatives, charitable programs, and shared cultural events. Together we serve Jacksonville's diverse communities with a shared sense of purpose and belonging.</p>
                 <a href="#" class="sponsor-website">Visit Website</a>
             </div>
         </div>
@@ -749,13 +770,13 @@
                     <img src="" alt="Partner logo" class="logo-img"
                          onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
                          onerror="this.remove()">
-                    <div class="logo-ph">Logo Placeholder</div>
+                    <div class="logo-ph">Logo</div>
                 </div>
                 <span class="logo-visit-label">Visit Website</span>
             </a>
             <div class="sponsor-info">
                 <a href="#" class="sponsor-name-link">Partner Organization</a>
-                <p class="sponsor-desc">Placeholder description. This partner shares our values of cultural celebration and community service. We are proud to work alongside them in making Jacksonville a more vibrant and connected city.</p>
+                <p class="sponsor-desc">This partner shares our values of cultural celebration and community service. We are proud to work alongside them in making Jacksonville a more vibrant, connected, and welcoming city for families of all backgrounds.</p>
                 <a href="#" class="sponsor-website">Visit Website</a>
             </div>
         </div>
@@ -802,12 +823,13 @@
         <div class="footer-col">
             <h4>Contact</h4>
             <p>Jacksonville, FL</p>
-            <p>info@paji.org</p>
-            <p>(904) 555-0100</p>
+            <a href="mailto:paji4jax@gmail.com">paji4jax@gmail.com</a>
+            <a href="https://www.facebook.com/groups/paji4jax" target="_blank" rel="noopener">Facebook</a>
+            <a href="https://www.instagram.com/jaxpaji/" target="_blank" rel="noopener">Instagram</a>
         </div>
     </div>
     <div class="footer-divider">
-        <span>&copy; 2025 Punjabi Association of Jacksonville Indians. All rights reserved.</span>
+        <span>&copy; 2026 Punjabi Association of Jacksonville Indians. All rights reserved.</span>
         <span>Non-Profit 501(c)(3)</span>
     </div>
 </footer>

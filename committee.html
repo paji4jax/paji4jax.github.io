@@ -100,6 +100,16 @@
             background: var(--navy);
             z-index: 1;
         }
+        .brand-logo-img {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 2;
+        }
+        .brand-logo-img.loaded { opacity: 1; }
         .brand-name-main {
             display: block;
             color: #fff;
@@ -495,14 +505,25 @@
 <!-- TOPBAR -->
 <div class="topbar">
     <span>Serving Jacksonville's Punjabi Community Since 2021</span>
-    <span>info@paji.org &nbsp;&middot;&nbsp; (904) 555-0100</span>
+    <span>
+        <a href="mailto:paji4jax@gmail.com">paji4jax@gmail.com</a>
+        &nbsp;&middot;&nbsp;
+        <a href="https://www.facebook.com/groups/paji4jax" target="_blank" rel="noopener">Facebook</a>
+        &nbsp;&middot;&nbsp;
+        <a href="https://www.instagram.com/jaxpaji/" target="_blank" rel="noopener">Instagram</a>
+    </span>
 </div>
 
 <!-- NAVBAR -->
 <nav class="navbar">
     <div class="nav-inner">
         <a href="index.html" class="nav-brand">
-            <div class="brand-mark"></div>
+            <div class="brand-mark">
+                    <!-- PAJI Logo: set src="https://i.imgur.com/YOURCODE.png" to display official seal -->
+                    <img src="" alt="PAJI" class="brand-logo-img"
+                         onload="this.classList.add('loaded')"
+                         onerror="this.remove()">
+                </div>
             <div>
                 <span class="brand-name-main">PAJI</span>
                 <span class="brand-name-sub">Punjabi Association of Jacksonville Indians</span>
@@ -564,10 +585,8 @@
                 </div>
             </div>
             <div class="member-info">
-                <div class="member-name">Member Name</div>
+                <div class="member-name">Simran Kaur</div>
                 <div class="member-role">President</div>
-                <div class="member-divider"></div>
-                <p class="member-bio">Placeholder bio. This member has served the PAJI community with dedication and passion, bringing years of leadership experience to the organization.</p>
             </div>
         </div>
 
@@ -585,10 +604,8 @@
                 </div>
             </div>
             <div class="member-info">
-                <div class="member-name">Member Name</div>
+                <div class="member-name">Mini Wadhawan</div>
                 <div class="member-role">Vice President</div>
-                <div class="member-divider"></div>
-                <p class="member-bio">Placeholder bio. This member brings a strong background in community organizing and cultural programming to their role as Vice President of PAJI.</p>
             </div>
         </div>
 
@@ -606,10 +623,8 @@
                 </div>
             </div>
             <div class="member-info">
-                <div class="member-name">Member Name</div>
-                <div class="member-role">Treasurer</div>
-                <div class="member-divider"></div>
-                <p class="member-bio">Placeholder bio. Responsible for overseeing the financial health of PAJI, this member ensures all funds are managed with full transparency and integrity.</p>
+                <div class="member-name">Rinki Rakhra</div>
+                <div class="member-role">Secretary</div>
             </div>
         </div>
 
@@ -627,10 +642,8 @@
                 </div>
             </div>
             <div class="member-info">
-                <div class="member-name">Member Name</div>
-                <div class="member-role">Secretary</div>
-                <div class="member-divider"></div>
-                <p class="member-bio">Placeholder bio. As Secretary, this member handles communications, meeting records, and coordinates with all committee members to keep PAJI running smoothly.</p>
+                <div class="member-name">Reena Chadha</div>
+                <div class="member-role">Treasurer</div>
             </div>
         </div>
 
@@ -670,12 +683,13 @@
         <div class="footer-col">
             <h4>Contact</h4>
             <p>Jacksonville, FL</p>
-            <p>info@paji.org</p>
-            <p>(904) 555-0100</p>
+            <a href="mailto:paji4jax@gmail.com">paji4jax@gmail.com</a>
+            <a href="https://www.facebook.com/groups/paji4jax" target="_blank" rel="noopener">Facebook</a>
+            <a href="https://www.instagram.com/jaxpaji/" target="_blank" rel="noopener">Instagram</a>
         </div>
     </div>
     <div class="footer-divider">
-        <span>&copy; 2025 Punjabi Association of Jacksonville Indians. All rights reserved.</span>
+        <span>&copy; 2026 Punjabi Association of Jacksonville Indians. All rights reserved.</span>
         <span>Non-Profit 501(c)(3)</span>
     </div>
 </footer>

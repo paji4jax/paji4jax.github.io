@@ -104,6 +104,18 @@
             z-index: 1;
         }
 
+        /* PAJI logo image — shown over the tricolor ring when loaded */
+        .brand-logo-img {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 2;
+        }
+        .brand-logo-img.loaded { opacity: 1; }
+
         .brand-name-main {
             display: block;
             color: #fff;
@@ -675,14 +687,25 @@
 <!-- TOPBAR -->
 <div class="topbar">
     <span>Serving Jacksonville's Punjabi Community Since 2021</span>
-    <span>info@paji.org &nbsp;&middot;&nbsp; (904) 555-0100</span>
+    <span>
+        <a href="mailto:paji4jax@gmail.com">paji4jax@gmail.com</a>
+        &nbsp;&middot;&nbsp;
+        <a href="https://www.facebook.com/groups/paji4jax" target="_blank" rel="noopener">Facebook</a>
+        &nbsp;&middot;&nbsp;
+        <a href="https://www.instagram.com/jaxpaji/" target="_blank" rel="noopener">Instagram</a>
+    </span>
 </div>
 
 <!-- NAVBAR -->
 <nav class="navbar">
     <div class="nav-inner">
         <a href="index.html" class="nav-brand">
-            <div class="brand-mark"></div>
+            <div class="brand-mark">
+                    <!-- PAJI Logo: set src="https://i.imgur.com/YOURCODE.png" to display official seal -->
+                    <img src="" alt="PAJI" class="brand-logo-img"
+                         onload="this.classList.add('loaded')"
+                         onerror="this.remove()">
+                </div>
             <div>
                 <span class="brand-name-main">PAJI</span>
                 <span class="brand-name-sub">Punjabi Association of Jacksonville Indians</span>
@@ -749,7 +772,7 @@
         <img src="" alt="Welcome" class="frame-img"
              onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
              onerror="this.remove()">
-        <div class="frame-ph">Image Placeholder</div>
+        <div class="frame-ph">Image</div>
     </div>
 </section>
 
@@ -795,7 +818,7 @@
                 <img src="" alt="Cultural Festivals" class="frame-img"
                      onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
-                <div class="frame-ph">Image Placeholder</div>
+                <div class="frame-ph">Image</div>
             </div>
             <div class="fc-body">
                 <h3>Cultural Festivals</h3>
@@ -808,7 +831,7 @@
                 <img src="" alt="Youth Programs" class="frame-img"
                      onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
-                <div class="frame-ph">Image Placeholder</div>
+                <div class="frame-ph">Image</div>
             </div>
             <div class="fc-body">
                 <h3>Youth Programs</h3>
@@ -821,7 +844,7 @@
                 <img src="" alt="Community Outreach" class="frame-img"
                      onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
-                <div class="frame-ph">Image Placeholder</div>
+                <div class="frame-ph">Image</div>
             </div>
             <div class="fc-body">
                 <h3>Community Outreach</h3>
@@ -846,7 +869,7 @@
                 <img src="" alt="Vaisakhi Celebration 2026" class="frame-img"
                      onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
-                <div class="frame-ph">Event Image Placeholder</div>
+                <div class="frame-ph">Event Image</div>
             </div>
             <div class="fe-body">
                 <span class="fe-tag">Upcoming &mdash; April 2026</span>
@@ -917,12 +940,13 @@
         <div class="footer-col">
             <h4>Contact</h4>
             <p>Jacksonville, FL</p>
-            <p>info@paji.org</p>
-            <p>(904) 555-0100</p>
+            <a href="mailto:paji4jax@gmail.com">paji4jax@gmail.com</a>
+            <a href="https://www.facebook.com/groups/paji4jax" target="_blank" rel="noopener">Facebook</a>
+            <a href="https://www.instagram.com/jaxpaji/" target="_blank" rel="noopener">Instagram</a>
         </div>
     </div>
     <div class="footer-divider">
-        <span>&copy; 2025 Punjabi Association of Jacksonville Indians. All rights reserved.</span>
+        <span>&copy; 2026 Punjabi Association of Jacksonville Indians. All rights reserved.</span>
         <span>Non-Profit 501(c)(3)</span>
     </div>
 </footer>
