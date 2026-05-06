@@ -543,7 +543,7 @@
 
 <!-- TOPBAR -->
 <div class="topbar">
-    <span>Serving Jacksonville's Punjabi Community Since 2021</span>
+    <span>Serving Jacksonville's Punjabi Community Since 2023</span>
     <span>
         <a href="mailto:paji4jax@gmail.com">paji4jax@gmail.com</a>
         &nbsp;&middot;&nbsp;
@@ -653,7 +653,7 @@
     <div class="archive-bar" onclick="toggleArchive()" id="archiveBar">
         <div class="archive-bar-left">
             <h2>Past Events</h2>
-            <span class="archive-count" id="archiveCount">3</span>
+            <span class="archive-count" id="archiveCount">4</span>
         </div>
         <i class="archive-chevron" id="archiveChevron">&#9660;</i>
     </div>
@@ -661,69 +661,87 @@
     <div id="archived-list">
 
         <!-- ── ARCHIVED EVENT ──────────────────────────────────────
-             Copy this entire block when archiving a new event.
-             Change event-tag class to "archived", text to "Past Event".
-             Add img src for the event photo.
+             HOW TO ARCHIVE AN EVENT:
+             1. Copy the current .event-card block from the top section.
+             2. Paste it at the TOP of this list.
+             3. Change event-tag class "current" → "archived" and text to "Past Event".
+             4. Add img src="images/your-event-photo.jpg" to the img tag.
+             5. Update the Current Event section with the new event.
         ──────────────────────────────────────────────────────────── -->
+
+        <!-- Punjabi Lohri 2026 — save event photo as images/lohri-2026.jpg -->
         <div class="event-card">
             <div class="img-frame event-img-frame">
-                <img src="" alt="Annual Cultural Mela 2025" class="frame-img"
+                <img src="images/lohri-2026.jpg" alt="Punjabi Lohri 2026" class="frame-img"
                      onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
                 <div class="frame-ph">Image</div>
             </div>
             <div class="event-body">
                 <span class="event-tag archived">Past Event</span>
-                <h3>Annual Cultural Mela 2025</h3>
-                <p>Our flagship event of the year — featuring cultural performances, art exhibitions, children's games, food stalls, and community fellowship. Families from across Jacksonville came together for a full day of celebration.</p>
+                <h3>Punjabi Lohri 2026</h3>
+                <p>The festival of harvest was celebrated with a traditional bonfire, rewri, popcorn, and joyful Lohri songs. Families gathered for an evening of warmth, festivity, and community spirit marking the arrival of longer days.</p>
                 <div class="event-meta">
-                    <span>May 2025</span>
-                    <span>Convention Hall, Jacksonville</span>
-                    <span>600+ Attendees</span>
+                    <span>January 2026</span>
+                    <span>Jacksonville, FL</span>
                 </div>
             </div>
         </div>
 
-        <!-- ── ARCHIVED EVENT ──────────────────────────────────────
-             Copy this entire block when archiving a new event.
-        ──────────────────────────────────────────────────────────── -->
+        <!-- New Year's Eve Celebration 2026 — save event photo as images/nye-2026.jpg -->
         <div class="event-card">
             <div class="img-frame event-img-frame">
-                <img src="" alt="Diwali Celebration 2025" class="frame-img"
+                <img src="images/nye-2026.jpg" alt="New Year's Eve Celebration 2026" class="frame-img"
                      onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
                 <div class="frame-ph">Image</div>
             </div>
             <div class="event-body">
                 <span class="event-tag archived">Past Event</span>
-                <h3>Diwali Celebration 2025</h3>
-                <p>The festival of lights brought our community together for an evening of traditional lamp lighting, rangoli competitions, cultural performances, and delicious sweets. Families celebrated the triumph of light over darkness in joyful fellowship.</p>
+                <h3>New Year's Eve Celebration 2026</h3>
+                <p>PAJI rang in the New Year in style with a lively evening of music, cultural performances, and a festive dinner. The community came together to celebrate new beginnings surrounded by the warmth of family and friends.</p>
                 <div class="event-meta">
-                    <span>November 2025</span>
-                    <span>Main Auditorium, Jacksonville</span>
+                    <span>December 2025</span>
+                    <span>Jacksonville, FL</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pre-Karwa Chauth Celebration 2025 — save event photo as images/karwa-chauth-2025.jpg -->
+        <div class="event-card">
+            <div class="img-frame event-img-frame">
+                <img src="images/karwa-chauth-2025.jpg" alt="Pre-Karwa Chauth Celebration 2025" class="frame-img"
+                     onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
+                     onerror="this.remove()">
+                <div class="frame-ph">Image</div>
+            </div>
+            <div class="event-body">
+                <span class="event-tag archived">Past Event</span>
+                <h3>Pre-Karwa Chauth Celebration 2025</h3>
+                <p>Our annual Pre-Karwa Chauth gathering brought together the women of our community for an afternoon of mehendi, thali preparation, and traditional songs — honoring devotion, friendship, and Punjabi culture.</p>
+                <div class="event-meta">
+                    <span>October 2025</span>
+                    <span>Jacksonville, FL</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3rd Punjabi Mela 2025 — save event photo as images/mela-2025.jpg -->
+        <div class="event-card">
+            <div class="img-frame event-img-frame">
+                <img src="images/mela-2025.jpg" alt="3rd Punjabi Mela 2025" class="frame-img"
+                     onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
+                     onerror="this.remove()">
+                <div class="frame-ph">Image</div>
+            </div>
+            <div class="event-body">
+                <span class="event-tag archived">Past Event</span>
+                <h3>3rd Punjabi Mela 2025</h3>
+                <p>The 3rd Annual Punjabi Mela was our grandest event of the year — featuring live Bhangra and Giddha performances, a vibrant food bazaar, cultural exhibitions, and activities for the entire family. Jacksonville's Punjabi community came together in full celebration.</p>
+                <div class="event-meta">
+                    <span>April 2025</span>
+                    <span>Jacksonville, FL</span>
                     <span>800+ Attendees</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- ── ARCHIVED EVENT ──────────────────────────────────────
-             Copy this entire block when archiving a new event.
-        ──────────────────────────────────────────────────────────── -->
-        <div class="event-card">
-            <div class="img-frame event-img-frame">
-                <img src="" alt="Holi Festival 2025" class="frame-img"
-                     onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
-                     onerror="this.remove()">
-                <div class="frame-ph">Image</div>
-            </div>
-            <div class="event-body">
-                <span class="event-tag archived">Past Event</span>
-                <h3>Holi Festival 2025</h3>
-                <p>The festival of colors transformed our venue into a rainbow of joy. Community members of all ages played with organic colors, enjoyed traditional snacks, and danced to festive music well into the afternoon.</p>
-                <div class="event-meta">
-                    <span>March 2025</span>
-                    <span>Riverside Park, Jacksonville</span>
-                    <span>600+ Attendees</span>
                 </div>
             </div>
         </div>
@@ -738,7 +756,7 @@
         <div class="footer-brand">
             <h3>PAJI</h3>
             <p style="color: var(--gold-lt); font-family: 'Mukta', sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.2px;">Punjabi Association of Jacksonville Indians</p>
-            <p>A non-profit organization proudly serving Jacksonville's Punjabi community since 2021.</p>
+            <p>A non-profit organization proudly serving Jacksonville's Punjabi community since 2023.</p>
             <div class="footer-social">
                 <a href="https://www.facebook.com/groups/paji4jax" target="_blank" rel="noopener" class="social-link">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>

@@ -380,6 +380,61 @@
         .welcome-img-frame { height: 400px; border-radius: 2px; }
 
         /* ══════════════════════════════
+           BOARD SECTION
+        ══════════════════════════════ */
+        .board-section {
+            background: var(--navy);
+            padding: 72px 40px;
+            text-align: center;
+        }
+        .board-inner {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        .board-section h2 {
+            font-size: 2.3rem;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .board-section .rule-tri { margin: 12px auto 18px; }
+        .board-desc {
+            color: rgba(255,255,255,0.65);
+            font-size: 0.97rem;
+            max-width: 580px;
+            margin: 0 auto 34px;
+        }
+        .board-img-frame {
+            width: 100%;
+            aspect-ratio: 1487 / 726;
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+            background: rgba(255,255,255,0.06);
+            margin-bottom: 32px;
+        }
+        .board-img-frame .frame-img {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1;
+        }
+        .board-img-frame .frame-img.loaded { opacity: 1; }
+        .board-img-frame .frame-ph {
+            position: absolute; inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.3);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            border: 1.5px dashed rgba(255,255,255,0.18);
+        }
+        .board-img-frame.loaded .frame-ph { display: none; }
+
+        /* ══════════════════════════════
            PILLARS
         ══════════════════════════════ */
         .pillars {
@@ -686,6 +741,7 @@
         }
 
         @media (max-width: 768px) {
+            .board-section { padding: 52px 20px; }
             .topbar { flex-direction: column; gap: 2px; padding: 7px 20px; text-align: center; font-size: 0.72rem; }
             .nav-inner { padding: 0 20px; }
             .hero { height: 80vh; max-height: 560px; }
@@ -703,7 +759,7 @@
 
 <!-- TOPBAR -->
 <div class="topbar">
-    <span>Serving Jacksonville's Punjabi Community Since 2021</span>
+    <span>Serving Jacksonville's Punjabi Community Since 2023</span>
     <span>
         <a href="mailto:paji4jax@gmail.com">paji4jax@gmail.com</a>
         &nbsp;&middot;&nbsp;
@@ -793,6 +849,27 @@
     </div>
 </section>
 
+<!-- SERVING BOARD
+     Board image: save as images/board-members.jpg in the repo root -->
+<section class="board-section">
+    <div class="board-inner">
+        <h2>Our Serving Board</h2>
+        <div class="rule-tri"><span></span><span></span><span></span></div>
+        <p class="board-desc">PAJI is led by a dedicated team of elected board members who volunteer their time and energy to preserve our culture and serve Jacksonville's Punjabi community.</p>
+        <div class="board-img-frame img-frame">
+            <!--
+                Board Members image: save as images/board-members.jpg
+                (the "Board Members" graphic you shared)
+            -->
+            <img src="images/board-members.jpg" alt="PAJI Board Members 2023–2026" class="frame-img"
+                 onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
+                 onerror="this.remove()">
+            <div class="frame-ph">Board Members</div>
+        </div>
+        <a href="committee.html" class="btn btn-saffron">Meet the Committee</a>
+    </div>
+</section>
+
 <!-- PILLARS -->
 <div class="pillars">
     <div class="pillar">
@@ -829,10 +906,11 @@
             CARD IMAGES
             Add src="https://i.imgur.com/YOURCODE.jpeg" to each img tag below.
         -->
+        <!-- Cultural Festivals card — save a mela photo as images/cultural-mela.jpg -->
         <div class="feature-card">
             <div class="fc-accent"></div>
             <div class="img-frame fc-img-frame">
-                <img src="" alt="Cultural Festivals" class="frame-img"
+                <img src="images/cultural-mela.jpg" alt="Cultural Festivals" class="frame-img"
                      onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
                 <div class="frame-ph">Image</div>
@@ -842,10 +920,11 @@
                 <p>From Vaisakhi and Diwali to Lohri and Gurpurab, our festivals draw hundreds of families for authentic food, music, and dance every year.</p>
             </div>
         </div>
+        <!-- Youth Programs card — replace src with a youth program photo when available -->
         <div class="feature-card">
             <div class="fc-accent"></div>
             <div class="img-frame fc-img-frame">
-                <img src="" alt="Youth Programs" class="frame-img"
+                <img src="images/youth-program.jpg" alt="Youth Programs" class="frame-img"
                      onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
                 <div class="frame-ph">Image</div>
@@ -855,10 +934,11 @@
                 <p>Engaging the next generation through Punjabi language classes, Bhangra workshops, and youth leadership initiatives for children of all ages.</p>
             </div>
         </div>
+        <!-- Community Outreach card — save your outreach photo as images/community-outreach.jpg -->
         <div class="feature-card">
             <div class="fc-accent"></div>
             <div class="img-frame fc-img-frame">
-                <img src="" alt="Community Outreach" class="frame-img"
+                <img src="images/community-outreach.jpg" alt="Community Outreach" class="frame-img"
                      onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
                 <div class="frame-ph">Image</div>
@@ -911,7 +991,7 @@
         <div class="stat-label">Member Families</div>
     </div>
     <div class="stat-item">
-        <div class="stat-num">4</div>
+        <div class="stat-num">3</div>
         <div class="stat-label">Years Serving Jacksonville</div>
     </div>
     <div class="stat-item">
@@ -937,7 +1017,7 @@
         <div class="footer-brand">
             <h3>PAJI</h3>
             <p style="color: var(--gold-lt); font-family: 'Mukta', sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.2px;">Punjabi Association of Jacksonville Indians</p>
-            <p>A non-profit organization proudly serving Jacksonville's Punjabi community since 2021.</p>
+            <p>A non-profit organization proudly serving Jacksonville's Punjabi community since 2023.</p>
             <div class="footer-social">
                 <a href="https://www.facebook.com/groups/paji4jax" target="_blank" rel="noopener" class="social-link">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
