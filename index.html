@@ -228,12 +228,12 @@
         }
         .hero-img.loaded { opacity: 1; }
 
-        /* Thin gradient at bottom for signature/scroll legibility only */
+        /* Gradient at bottom for signature/scroll-indicator legibility */
         .hero-vignette {
             position: absolute;
             bottom: 0; left: 0; right: 0;
-            height: 120px;
-            background: linear-gradient(to top, rgba(0,0,0,0.38), transparent);
+            height: 170px;
+            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
             z-index: 2;
             pointer-events: none;
         }
@@ -251,42 +251,42 @@
             text-transform: uppercase;
         }
 
-        /* Scroll indicator — bottom center */
+        /* Scroll indicator — bottom center. A circular badge with a
+           bouncing chevron reads clearly against any part of the photo,
+           unlike a thin line, which was too subtle to notice. */
         .hero-scroll {
             position: absolute;
-            bottom: 28px;
+            bottom: 26px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 3;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
-            color: rgba(255,255,255,0.5);
+            gap: 9px;
+            color: #fff;
             font-family: 'Mukta', sans-serif;
-            font-size: 0.62rem;
-            font-weight: 600;
+            font-size: 0.68rem;
+            font-weight: 700;
             letter-spacing: 3px;
             text-transform: uppercase;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
         }
-        .scroll-line {
-            width: 1px;
-            height: 38px;
-            position: relative;
-            overflow: hidden;
-            background: rgba(255,255,255,0.15);
+        .scroll-badge {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.7);
+            background: rgba(17,28,48,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: scroll-bounce 1.8s ease-in-out infinite;
         }
-        .scroll-line::after {
-            content: '';
-            position: absolute;
-            top: -100%; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(255,255,255,0.55);
-            animation: scroll-drop 1.9s ease infinite;
-        }
-        @keyframes scroll-drop {
-            0%   { top: -100%; }
-            100% { top: 100%; }
+        .scroll-badge svg { width: 16px; height: 16px; }
+        @keyframes scroll-bounce {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(6px); }
         }
 
         /* ══════════════════════════════
@@ -393,9 +393,14 @@
            .welcome-img-frame <div> (not the <img> inside it). */
         .welcome-img-frame {
             width: var(--frame-w, 100%);
+            max-width: 100%;
             height: var(--frame-h, 400px);
             margin: 0 auto;
             border-radius: 2px;
+            /* Grid items default to min-width:auto, which lets an explicit
+               --frame-w override overflow its track on narrow screens even
+               with max-width set above. min-width:0 lets max-width win. */
+            min-width: 0;
         }
 
         /* ══════════════════════════════
@@ -428,6 +433,7 @@
            aspect ratio at the section's max width. */
         .board-img-frame {
             width: var(--frame-w, 100%);
+            max-width: 100%;
             height: var(--frame-h, 469px);
             border-radius: 3px;
             overflow: hidden;
@@ -498,6 +504,7 @@
            if you shrink it. */
         .fc-img-frame {
             width: var(--frame-w, calc(100% - 36px));
+            max-width: calc(100% - 36px);
             height: var(--frame-h, 190px);
             margin: 18px auto 0;
             border-radius: 2px;
@@ -548,6 +555,22 @@
         }
         .featured-event:hover { box-shadow: 0 8px 32px rgba(28,43,74,0.1); }
 
+        /* Shown in place of the featured event card while the next
+           event is still being planned. */
+        .event-placeholder {
+            background: var(--cream-dk);
+            border: 1.5px dashed var(--border);
+            border-radius: 2px;
+            padding: 56px 30px;
+            text-align: center;
+        }
+        .event-placeholder p {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--muted);
+        }
+
         /* Box HEIGHT — override with --frame-h on the .fe-img-frame <div>. */
         .fe-img-frame { min-height: var(--frame-h, 320px); }
 
@@ -597,13 +620,6 @@
             font-style: italic;
             font-family: 'EB Garamond', serif;
         }
-
-        /* ══════════════════════════════
-           CTA
-        ══════════════════════════════ */
-        .cta-strip { background: var(--cream-dk); padding: 48px 40px; text-align: center; }
-        .cta-strip h2 { font-size: 2rem; color: var(--navy); margin-bottom: 14px; }
-        .cta-strip p  { font-size: 1rem; color: var(--muted); margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto; font-family: 'Mukta', sans-serif; }
 
         /* ══════════════════════════════
            FOOTER
@@ -677,7 +693,12 @@
            RESPONSIVE
         ══════════════════════════════ */
         @media (max-width: 1100px) {
-            .welcome { grid-template-columns: 1fr; gap: 44px; }
+            /* display:block instead of a 1-column grid — a fixed pixel
+               --frame-w on the image can make a grid track overflow the
+               viewport even with max-width set; plain block stacking
+               doesn't have that quirk. */
+            .welcome { display: block; }
+            .welcome-text { margin-bottom: 44px; }
             .features-grid { grid-template-columns: 1fr 1fr; }
             .footer-inner { grid-template-columns: 1fr 1fr; }
             .featured-event { grid-template-columns: 1fr; }
@@ -725,11 +746,17 @@
             .topbar { flex-direction: column; gap: 2px; padding: 7px 20px; text-align: center; font-size: 0.72rem; }
             .nav-inner { padding: 0 20px; }
             .hero { height: 80vh; max-height: 560px; }
-            .hero-scroll { display: none; }
+            .hero-scroll { bottom: 18px; }
+            .scroll-badge { width: 38px; height: 38px; }
             .hero-sig { bottom: 18px; right: 20px; }
             .features-grid { grid-template-columns: 1fr; }
             .footer-inner { grid-template-columns: 1fr; }
             .footer-divider { flex-direction: column; gap: 6px; text-align: center; }
+        }
+        /* Narrow phones — the nav tagline no longer fits next to the
+           logo and hamburger, so it's dropped to prevent overflow. */
+        @media (max-width: 420px) {
+            .brand-name-sub { display: none; }
         }
     </style>
 </head>
@@ -865,8 +892,12 @@
     <div class="hero-vignette"></div>
     <div class="hero-sig">PAJI</div>
     <div class="hero-scroll">
+        <div class="scroll-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        </div>
         <span>Scroll</span>
-        <div class="scroll-line"></div>
     </div>
 </section>
 
@@ -982,49 +1013,20 @@
 </section>
 
 <!-- FEATURED EVENT
-     Only 1 event shown here at a time.
-     Update the content below when the current event changes.
-     Save the event photo as images/mela-2026.jpg -->
+     Placeholder shown while the next event is being planned.
+     When a new event is confirmed, replace the .event-placeholder
+     block below with a .featured-event card (see events.html for
+     the exact markup to copy). -->
 <section class="events-preview">
     <div class="events-preview-inner">
         <div class="events-head">
             <h2>Upcoming Event</h2>
             <a href="events.html">View all &amp; past events &rarr;</a>
         </div>
-        <!-- --img-x / --img-y (on the <img>) move the photo within its box.
-             --frame-w (BOX WIDTH) goes on this .featured-event <div> —
-             it's really the grid's first column width.
-             --frame-h (BOX HEIGHT) goes on the .fe-img-frame <div> below. -->
-        <div class="featured-event" style="--frame-w: 420px;">
-            <div class="img-frame fe-img-frame" style="--frame-h: 320px;">
-                <img src="images/mela-2026.jpg" alt="4th Annual Punjabi Mela" class="frame-img"
-                     style="--img-x: 50%; --img-y: 50%;"
-                     loading="lazy" decoding="async"
-             onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
-                     onerror="this.remove()">
-                <div class="frame-ph">Event Image</div>
-            </div>
-            <div class="fe-body">
-                <span class="fe-tag">Upcoming &mdash; April 2026</span>
-                <h3>4th Annual Punjabi Mela</h3>
-                <p>Join us for the 4th Annual Punjabi Mela — a grand celebration of Punjabi culture, community, and togetherness. Enjoy live Bhangra and Giddha performances, authentic Punjabi cuisine, cultural exhibitions, and activities for the entire family. Our biggest event of the year.</p>
-                <div class="fe-meta">
-                    <span>April 13, 2026</span>
-                    <span>Community Center, Jacksonville</span>
-                    <span>5:00 PM &ndash; 10:00 PM</span>
-                </div>
-                <a href="events.html" class="btn btn-saffron">Full Event Details</a>
-                <p class="fe-note">One event is featured at a time. View the full archive on the Events page.</p>
-            </div>
+        <div class="event-placeholder">
+            <p>Details Coming Soon</p>
         </div>
     </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-strip">
-    <h2>Be a Part of Our Community</h2>
-    <p>Membership is open to all who share our love for Punjabi culture and the spirit of togetherness.</p>
-    <a href="contact.html" class="btn btn-saffron">Get in Touch</a>
 </section>
 
 <!-- FOOTER -->

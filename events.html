@@ -326,6 +326,23 @@
         /* Cards inside #archived-list get the navy accent */
         #archived-list .event-card { border-left-color: var(--navy); }
 
+        /* Shown in place of the Current Event card while the next
+           event is still being planned. */
+        .event-placeholder {
+            background: var(--cream-dk);
+            border: 1.5px dashed var(--border);
+            border-radius: 2px;
+            padding: 56px 30px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .event-placeholder p {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--muted);
+        }
+
         .event-img-frame { min-height: 260px; }
 
         .event-body {
@@ -545,6 +562,11 @@
             .footer-inner { grid-template-columns: 1fr; }
             .footer-divider { flex-direction: column; gap: 6px; text-align: center; }
         }
+        /* Narrow phones — the nav tagline no longer fits next to the
+           logo and hamburger, so it's dropped to prevent overflow. */
+        @media (max-width: 420px) {
+            .brand-name-sub { display: none; }
+        }
     </style>
 </head>
 <body>
@@ -642,12 +664,10 @@
 
     <!-- ══════════════════════════════
          CURRENT EVENT
-         Only one event is shown here at a time.
-         When this event is over, copy the entire .event-card block
-         below and paste it inside #archived-list further down,
-         then replace this card's content with the new event.
-
-         Save the event photo as images/mela-2026.jpg
+         Placeholder shown while the next event is being planned.
+         When a new event is confirmed, replace the .event-placeholder
+         block below with an .event-card (see the archived cards further
+         down for the exact markup to copy).
     ══════════════════════════════ -->
     <div class="section-label">
         <h2>Current Event</h2>
@@ -655,24 +675,8 @@
     </div>
     <hr class="section-divider">
 
-    <div class="event-card">
-        <div class="img-frame event-img-frame">
-            <img src="images/mela-2026.jpg" alt="4th Annual Punjabi Mela" class="frame-img"
-                 style="--img-x: 50%; --img-y: 50%;"
-                 onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
-                 onerror="this.remove()">
-            <div class="frame-ph">Event Image</div>
-        </div>
-        <div class="event-body">
-            <span class="event-tag current">Upcoming</span>
-            <h3>4th Annual Punjabi Mela</h3>
-            <p>Join us for the 4th Annual Punjabi Mela — a grand celebration of Punjabi culture, community, and togetherness. Enjoy live Bhangra and Giddha performances, authentic Punjabi cuisine, cultural exhibitions, and activities for the entire family. This is our biggest event of the year, bringing Jacksonville's Punjabi community together for an unforgettable evening.</p>
-            <div class="event-meta">
-                <span>April 13, 2026</span>
-                <span>Community Center, Jacksonville</span>
-                <span>5:00 PM &ndash; 10:00 PM</span>
-            </div>
-        </div>
+    <div class="event-placeholder">
+        <p>Details Coming Soon</p>
     </div>
 
 
@@ -693,7 +697,7 @@
     <div class="archive-bar" onclick="toggleArchive()" id="archiveBar">
         <div class="archive-bar-left">
             <h2>Past Events</h2>
-            <span class="archive-count" id="archiveCount">4</span>
+            <span class="archive-count" id="archiveCount">5</span>
         </div>
         <i class="archive-chevron" id="archiveChevron">&#9660;</i>
     </div>
@@ -710,6 +714,27 @@
              (Each photo also has its own --img-x / --img-y position
              controls — see "IMAGE POSITION CONTROLS" near <body>.)
         ──────────────────────────────────────────────────────────── -->
+
+        <!-- 4th Annual Punjabi Mela — save event photo as images/mela-2026.jpg -->
+        <div class="event-card">
+            <div class="img-frame event-img-frame">
+                <img src="images/mela-2026.jpg" alt="4th Annual Punjabi Mela" class="frame-img"
+                     style="--img-x: 50%; --img-y: 50%;"
+                     loading="lazy" decoding="async"
+                     onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
+                     onerror="this.remove()">
+                <div class="frame-ph">Image</div>
+            </div>
+            <div class="event-body">
+                <span class="event-tag archived">Past Event</span>
+                <h3>4th Annual Punjabi Mela</h3>
+                <p>A grand celebration of Punjabi culture, community, and togetherness featuring live Bhangra and Giddha performances, authentic Punjabi cuisine, cultural exhibitions, and activities for the entire family — our biggest event of the year.</p>
+                <div class="event-meta">
+                    <span>April 13, 2026</span>
+                    <span>Community Center, Jacksonville</span>
+                </div>
+            </div>
+        </div>
 
         <!-- Punjabi Lohri 2026 — save event photo as images/lohri-2026.jpg -->
         <div class="event-card">

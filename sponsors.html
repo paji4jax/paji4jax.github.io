@@ -640,6 +640,11 @@
             .footer-inner { grid-template-columns: 1fr; }
             .footer-divider { flex-direction: column; gap: 6px; text-align: center; }
         }
+        /* Narrow phones — the nav tagline no longer fits next to the
+           logo and hamburger, so it's dropped to prevent overflow. */
+        @media (max-width: 420px) {
+            .brand-name-sub { display: none; }
+        }
     </style>
 </head>
 <body>
@@ -851,12 +856,13 @@
             </div>
         </div>
 
-        <!-- SOHETS Photography — sponsored by Soham and Hetal — no confirmed website -->
+        <!-- SOHETS Photography — sponsored by Soham and Hetal -->
         <div class="sponsor-row">
             <div class="sponsor-info">
-                <div class="sponsor-name">SOHETS Photography</div>
+                <a href="https://sohetsphotography.com/" target="_blank" rel="noopener" class="sponsor-name-link">SOHETS Photography</a>
                 <span class="sponsor-credit">Sponsored by Soham and Hetal</span>
                 <p class="sponsor-desc">Photography services for weddings and special occasions.</p>
+                <a href="https://sohetsphotography.com/" target="_blank" rel="noopener" class="sponsor-website">Visit Website</a>
             </div>
         </div>
 

@@ -527,6 +527,11 @@
             .footer-inner { grid-template-columns: 1fr; }
             .footer-divider { flex-direction: column; gap: 6px; text-align: center; }
         }
+        /* Narrow phones — the nav tagline no longer fits next to the
+           logo and hamburger, so it's dropped to prevent overflow. */
+        @media (max-width: 420px) {
+            .brand-name-sub { display: none; }
+        }
     </style>
 </head>
 <body>
