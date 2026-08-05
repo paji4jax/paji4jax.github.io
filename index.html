@@ -205,19 +205,23 @@
         ══════════════════════════════ */
         .hero {
             position: relative;
-            height: 92vh;
+            /* Box height — override with --frame-h on the <section class="hero"> tag.
+               max-height/min-height below are safety bounds so the hero can't
+               get absurdly tall or short; raise/lower them if you need to. */
+            height: var(--frame-h, 92vh);
             max-height: 760px;
             min-height: 480px;
             overflow: hidden;
             background: var(--navy-dark);
         }
 
-        /* Imgur banner: swap src to any imgur URL */
+        /* Banner image. Position is controlled per-image — see the
+           "IMAGE POSITION CONTROLS" comment near the top of <body>. */
         .hero-img {
             position: absolute; inset: 0;
             width: 100%; height: 100%;
             object-fit: cover;
-            object-position: center;
+            object-position: var(--img-x, 50%) var(--img-y, 50%);
             z-index: 1;
             opacity: 0;
             transition: opacity 0.5s ease;
@@ -346,9 +350,14 @@
         .welcome-text p { color: var(--muted); margin-bottom: 16px; font-size: 1rem; }
 
         /* ══════════════════════════════
-           IMAGE FRAMES (imgur-compatible)
-           To add an image: set src="https://i.imgur.com/YOURCODE.jpeg"
-           on the <img> tag. Placeholder hides automatically on load.
+           IMAGE FRAMES (local /images folder)
+           To add a photo: save the file in the "images" folder next to
+           this HTML file, then set src="images/your-file-name.jpg" on
+           the <img> tag. The grey placeholder hides automatically once
+           the photo loads.
+
+           To reposition a photo inside its frame, see the
+           "IMAGE POSITION CONTROLS" comment near the top of <body>.
         ══════════════════════════════ */
         .img-frame {
             position: relative;
@@ -359,6 +368,9 @@
             position: absolute; inset: 0;
             width: 100%; height: 100%;
             object-fit: cover;
+            /* --img-x / --img-y are set per-image via inline style="" —
+               each photo's position is independent of every other photo */
+            object-position: var(--img-x, 50%) var(--img-y, 50%);
             opacity: 0;
             transition: opacity 0.3s;
             z-index: 1;
@@ -377,7 +389,14 @@
         }
         .img-frame.loaded .frame-ph { display: none; }
 
-        .welcome-img-frame { height: 400px; border-radius: 2px; }
+        /* Box size — override with --frame-w / --frame-h on the
+           .welcome-img-frame <div> (not the <img> inside it). */
+        .welcome-img-frame {
+            width: var(--frame-w, 100%);
+            height: var(--frame-h, 400px);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
 
         /* ══════════════════════════════
            BOARD SECTION
@@ -403,19 +422,24 @@
             max-width: 580px;
             margin: 0 auto 34px;
         }
+        /* Box size — override with --frame-w / --frame-h on the
+           .board-img-frame <div> (not the <img> inside it).
+           Default height (469px) matches the graphic's original
+           aspect ratio at the section's max width. */
         .board-img-frame {
-            width: 100%;
-            aspect-ratio: 1487 / 726;
+            width: var(--frame-w, 100%);
+            height: var(--frame-h, 469px);
             border-radius: 3px;
             overflow: hidden;
             position: relative;
             background: rgba(255,255,255,0.06);
-            margin-bottom: 32px;
+            margin: 0 auto 32px;
         }
         .board-img-frame .frame-img {
             position: absolute; inset: 0;
             width: 100%; height: 100%;
             object-fit: cover;
+            object-position: var(--img-x, 50%) var(--img-y, 50%);
             opacity: 0;
             transition: opacity 0.3s;
             z-index: 1;
@@ -493,7 +517,16 @@
         .feature-card:nth-child(2) .fc-accent { background: var(--green); }
         .feature-card:nth-child(3) .fc-accent { background: var(--gold); }
 
-        .fc-img-frame { height: 190px; margin: 18px 18px 0; border-radius: 2px; }
+        /* Box size — override with --frame-w / --frame-h on each card's
+           .fc-img-frame <div> (not the <img> inside it). Default width
+           fills the card minus its 18px side gutters and stays centered
+           if you shrink it. */
+        .fc-img-frame {
+            width: var(--frame-w, calc(100% - 36px));
+            height: var(--frame-h, 190px);
+            margin: 18px auto 0;
+            border-radius: 2px;
+        }
 
         .fc-body { padding: 20px 22px 28px; }
         .fc-body h3 { font-size: 1.3rem; color: var(--navy); margin-bottom: 10px; }
@@ -525,9 +558,13 @@
         }
         .events-head a:hover { text-decoration: underline; }
 
+        /* Box WIDTH for the event photo is set here (--frame-w) because
+           this frame sits in a 2-column grid — its width is really the
+           grid's first column width. Set --frame-w on the
+           .featured-event <div>, not on .fe-img-frame itself. */
         .featured-event {
             display: grid;
-            grid-template-columns: 420px 1fr;
+            grid-template-columns: var(--frame-w, 420px) 1fr;
             border: 1px solid var(--border);
             border-radius: 2px;
             overflow: hidden;
@@ -536,7 +573,8 @@
         }
         .featured-event:hover { box-shadow: 0 8px 32px rgba(28,43,74,0.1); }
 
-        .fe-img-frame { min-height: 320px; }
+        /* Box HEIGHT — override with --frame-h on the .fe-img-frame <div>. */
+        .fe-img-frame { min-height: var(--frame-h, 320px); }
 
         .fe-body {
             padding: 44px 46px;
@@ -757,6 +795,65 @@
 </head>
 <body>
 
+<!-- ══════════════════════════════════════════════════════════
+     IMAGE POSITION CONTROLS — READ ME FIRST
+
+     Every photo on this page loads from the local "images" folder
+     (next to this HTML file) — nothing pulls from imgur anymore.
+     To add or swap a photo: save the file into "images" with the
+     name shown in the src="" attribute, e.g. src="images/hero.jpg"
+     means the file must be named "hero.jpg" inside the images folder.
+
+     Each <img> tag also has a style="--img-x: 50%; --img-y: 50%;"
+     attribute. These two numbers control WHERE the photo is
+     positioned inside its frame — use them if the photo gets
+     cropped in a way you don't like (e.g. a face gets cut off).
+
+       --img-x   moves the visible crop LEFT / RIGHT
+                   0%   = show the far LEFT edge of the photo
+                   50%  = centered (default)
+                   100% = show the far RIGHT edge of the photo
+
+       --img-y   moves the visible crop UP / DOWN
+                   0%   = show the very TOP of the photo
+                   50%  = centered (default)
+                   100% = show the very BOTTOM of the photo
+
+     Example — to shift a photo up and slightly left:
+         style="--img-x: 40%; --img-y: 20%;"
+
+     Each image's --img-x / --img-y is independent — changing one
+     photo's position never affects any other photo on this page.
+
+     ──────────────────────────────────────────────────────────
+     IMAGE BOX SIZE CONTROLS (stretch / shrink the "mask")
+
+     --img-x / --img-y (above) move the photo WITHIN its box.
+     --frame-w / --frame-h instead resize the BOX ITSELF — the
+     visible window that crops/masks the photo. Making the box
+     taller shows more of the photo vertically; making it wider
+     shows more horizontally (and vice-versa for shrinking).
+
+     IMPORTANT: --frame-w / --frame-h go on the outer box element
+     (the <div class="...-img-frame"> or, for the hero, the
+     <section class="hero"> tag) — NOT on the <img> tag itself.
+     One exception: the featured-event photo's WIDTH is set on its
+     parent <div class="featured-event"> because that box's width
+     is really a 2-column grid track — see the comment above that
+     section for details.
+
+     Accepted values: px (e.g. 350px) or % (e.g. 80%).
+
+     Example — make the Welcome photo shorter and narrower:
+         <div class="img-frame welcome-img-frame"
+              style="--frame-w: 80%; --frame-h: 300px;">
+
+     Each box's --frame-w / --frame-h is independent — resizing one
+     box never affects any other box on this page. On small mobile
+     screens some boxes automatically switch to a fixed size for
+     layout reasons, overriding these values there by design.
+══════════════════════════════════════════════════════════ -->
+
 <!-- TOPBAR -->
 <div class="topbar">
     <span>Serving Jacksonville's Punjabi Community Since 2023</span>
@@ -774,7 +871,7 @@
     <div class="nav-inner">
         <a href="index.html" class="nav-brand">
             <div class="brand-mark">
-                    <!-- PAJI Logo: set src="https://i.imgur.com/YOURCODE.png" to display official seal -->
+                    <!-- PAJI Logo — save as logo.png in the repo root (transparent PNG works best) -->
                     <img src="logo.png" alt="PAJI" class="brand-logo-img"
                          onload="this.classList.add('loaded')"
                          onerror="this.remove()">
@@ -808,14 +905,18 @@
 
 <!-- ══════════════════════════════════════════════════════════
      HERO — full-bleed image, no text overlay
-     Banner image: change src to any imgur URL.
-     e.g. src="https://i.imgur.com/YOURCODE.jpeg"
+     Save the banner photo as images/hero-banner.jpg
+     To reposition it, edit --img-x / --img-y on the <img> below.
+     To resize the box (height only — this banner is full-width
+     by design), edit --frame-h on this <section> tag.
+     See the "IMAGE POSITION / BOX SIZE CONTROLS" comment above <body>.
 ══════════════════════════════════════════════════════════ -->
-<section class="hero">
+<section class="hero" style="--frame-h: 92vh;">
     <img
-        src="https://i.imgur.com/Tb6kjBN.jpeg"
+        src="images/hero-banner.jpg"
         alt=""
         class="hero-img"
+        style="--img-x: 50%; --img-y: 50%;"
         onload="this.classList.add('loaded')"
         onerror="this.remove()">
     <div class="hero-vignette"></div>
@@ -837,12 +938,12 @@
             <a href="about.html" class="btn btn-saffron">Learn About Us</a>
         </div>
     </div>
-    <!--
-        WELCOME IMAGE
-        Add src="https://i.imgur.com/YOURCODE.jpeg" to the img tag below.
-    -->
-    <div class="img-frame welcome-img-frame">
-        <img src="" alt="Welcome" class="frame-img"
+    <!-- WELCOME IMAGE — save as images/welcome.jpg
+         --img-x / --img-y (on the <img>) move the photo within the box.
+         --frame-w / --frame-h (on this <div>) resize the box itself. -->
+    <div class="img-frame welcome-img-frame" style="--frame-w: 800px; --frame-h: 400px;">
+        <img src="images/welcome.jpg" alt="Welcome" class="frame-img"
+             style="--img-x: 50%; --img-y: 50%;"
              onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
              onerror="this.remove()">
         <div class="frame-ph">Image</div>
@@ -856,12 +957,12 @@
         <h2>Our Serving Board</h2>
         <div class="rule-tri"><span></span><span></span><span></span></div>
         <p class="board-desc">PAJI is led by a dedicated team of elected board members who volunteer their time and energy to preserve our culture and serve Jacksonville's Punjabi community.</p>
-        <div class="board-img-frame img-frame">
-            <!--
-                Board Members image: save as images/board-members.jpg
-                (the "Board Members" graphic you shared)
-            -->
+        <!-- Board Members image — save as images/board-members.jpeg
+             --img-x / --img-y (on the <img>) move the photo within the box.
+             --frame-w / --frame-h (on this <div>) resize the box itself. -->
+        <div class="board-img-frame img-frame" style="--frame-w: 100%; --frame-h: 469px;">
             <img src="images/board-members.jpeg" alt="PAJI Board Members 2023–2026" class="frame-img"
+                 style="--img-x: 50%; --img-y: 30%;"
                  onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                  onerror="this.remove()">
             <div class="frame-ph">Board Members</div>
@@ -902,15 +1003,18 @@
         <p>From vibrant festivals to community service, a glimpse of our programs throughout the year.</p>
     </div>
     <div class="features-grid">
-        <!--
-            CARD IMAGES
-            Add src="https://i.imgur.com/YOURCODE.jpeg" to each img tag below.
-        -->
+        <!-- CARD IMAGES — save each file in /images with the name shown
+             in its src="" below.
+             --img-x / --img-y (on the <img>) move the photo within its box.
+             --frame-w / --frame-h (on the .fc-img-frame <div>) resize the
+             box itself. Each card's controls are fully independent. -->
+
         <!-- Cultural Festivals card — save a mela photo as images/cultural-mela.jpg -->
         <div class="feature-card">
             <div class="fc-accent"></div>
-            <div class="img-frame fc-img-frame">
+            <div class="img-frame fc-img-frame" style="--frame-w: calc(100% - 36px); --frame-h: 190px;">
                 <img src="images/cultural-mela.jpg" alt="Cultural Festivals" class="frame-img"
+                     style="--img-x: 50%; --img-y: 50%;"
                      onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
                 <div class="frame-ph">Image</div>
@@ -920,11 +1024,12 @@
                 <p>From Vaisakhi and Diwali to Lohri and Gurpurab, our festivals draw hundreds of families for authentic food, music, and dance every year.</p>
             </div>
         </div>
-        <!-- Youth Programs card — replace src with a youth program photo when available -->
+        <!-- Youth Programs card — save a photo as images/youth-program.jpg -->
         <div class="feature-card">
             <div class="fc-accent"></div>
-            <div class="img-frame fc-img-frame">
+            <div class="img-frame fc-img-frame" style="--frame-w: calc(100% - 36px); --frame-h: 190px;">
                 <img src="images/youth-program.jpg" alt="Youth Programs" class="frame-img"
+                     style="--img-x: 50%; --img-y: 50%;"
                      onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
                 <div class="frame-ph">Image</div>
@@ -934,11 +1039,12 @@
                 <p>Engaging the next generation through Punjabi language classes, Bhangra workshops, and youth leadership initiatives for children of all ages.</p>
             </div>
         </div>
-        <!-- Community Outreach card — save your outreach photo as images/community-outreach.jpg -->
+        <!-- Community Outreach card — save your outreach photo as images/community-outreach.jpeg -->
         <div class="feature-card">
             <div class="fc-accent"></div>
-            <div class="img-frame fc-img-frame">
+            <div class="img-frame fc-img-frame" style="--frame-w: calc(100% - 36px); --frame-h: 190px;">
                 <img src="images/community-outreach.jpeg" alt="Community Outreach" class="frame-img"
+                     style="--img-x: 50%; --img-y: 50%;"
                      onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
                 <div class="frame-ph">Image</div>
@@ -954,16 +1060,21 @@
 <!-- FEATURED EVENT
      Only 1 event shown here at a time.
      Update the content below when the current event changes.
-     Add event image: set src="https://i.imgur.com/YOURCODE.jpeg" on the img tag. -->
+     Save the event photo as images/mela-2026.jpg -->
 <section class="events-preview">
     <div class="events-preview-inner">
         <div class="events-head">
             <h2>Upcoming Event</h2>
             <a href="events.html">View all &amp; past events &rarr;</a>
         </div>
-        <div class="featured-event">
-            <div class="img-frame fe-img-frame">
-                <img src="" alt="4th Annual Punjabi Mela" class="frame-img"
+        <!-- --img-x / --img-y (on the <img>) move the photo within its box.
+             --frame-w (BOX WIDTH) goes on this .featured-event <div> —
+             it's really the grid's first column width.
+             --frame-h (BOX HEIGHT) goes on the .fe-img-frame <div> below. -->
+        <div class="featured-event" style="--frame-w: 420px;">
+            <div class="img-frame fe-img-frame" style="--frame-h: 320px;">
+                <img src="images/mela-2026.jpg" alt="4th Annual Punjabi Mela" class="frame-img"
+                     style="--img-x: 50%; --img-y: 50%;"
                      onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
                 <div class="frame-ph">Event Image</div>

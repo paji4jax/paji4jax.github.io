@@ -264,9 +264,14 @@
         .section-divider { border: none; border-top: 1px solid var(--border); margin-bottom: 32px; }
 
         /* ══════════════════════════════
-           IMAGE FRAMES (imgur-compatible)
-           To add an image: set src="https://i.imgur.com/YOURCODE.jpeg"
-           Placeholder disappears automatically on load.
+           IMAGE FRAMES (local /images folder)
+           To add a photo: save the file in the "images" folder next to
+           this HTML file, then set src="images/your-file-name.jpg" on
+           the <img> tag. The grey placeholder hides automatically once
+           the photo loads.
+
+           To reposition a photo inside its frame, see the
+           "IMAGE POSITION CONTROLS" comment near the top of <body>.
         ══════════════════════════════ */
         .img-frame {
             position: relative;
@@ -277,6 +282,9 @@
             position: absolute; inset: 0;
             width: 100%; height: 100%;
             object-fit: cover;
+            /* --img-x / --img-y are set per-image via inline style="" —
+               each photo's position is independent of every other photo */
+            object-position: var(--img-x, 50%) var(--img-y, 50%);
             opacity: 0;
             transition: opacity 0.3s;
             z-index: 1;
@@ -541,6 +549,37 @@
 </head>
 <body>
 
+<!-- ══════════════════════════════════════════════════════════
+     IMAGE POSITION CONTROLS — READ ME FIRST
+
+     Every photo on this page loads from the local "images" folder
+     (next to this HTML file) — nothing pulls from imgur anymore.
+     To add or swap a photo: save the file into "images" with the
+     name shown in the src="" attribute, e.g. src="images/lohri-2026.jpg"
+     means the file must be named "lohri-2026.jpg" inside images.
+
+     Each <img> tag also has a style="--img-x: 50%; --img-y: 50%;"
+     attribute. These two numbers control WHERE the photo is
+     positioned inside its frame — use them if the photo gets
+     cropped in a way you don't like (e.g. a face gets cut off).
+
+       --img-x   moves the visible crop LEFT / RIGHT
+                   0%   = show the far LEFT edge of the photo
+                   50%  = centered (default)
+                   100% = show the far RIGHT edge of the photo
+
+       --img-y   moves the visible crop UP / DOWN
+                   0%   = show the very TOP of the photo
+                   50%  = centered (default)
+                   100% = show the very BOTTOM of the photo
+
+     Example — to shift a photo up and slightly left:
+         style="--img-x: 40%; --img-y: 20%;"
+
+     Each image's --img-x / --img-y is independent — changing one
+     photo's position never affects any other photo on this page.
+══════════════════════════════════════════════════════════ -->
+
 <!-- TOPBAR -->
 <div class="topbar">
     <span>Serving Jacksonville's Punjabi Community Since 2023</span>
@@ -558,7 +597,7 @@
     <div class="nav-inner">
         <a href="index.html" class="nav-brand">
             <div class="brand-mark">
-                    <!-- PAJI Logo: set src="https://i.imgur.com/YOURCODE.png" to display official seal -->
+                    <!-- PAJI Logo — save as logo.png in the repo root (transparent PNG works best) -->
                     <img src="logo.png" alt="PAJI" class="brand-logo-img"
                          onload="this.classList.add('loaded')"
                          onerror="this.remove()">
@@ -607,8 +646,7 @@
          below and paste it inside #archived-list further down,
          then replace this card's content with the new event.
 
-         To set the event image:
-         Add src="https://i.imgur.com/YOURCODE.jpeg" to the img tag.
+         Save the event photo as images/mela-2026.jpg
     ══════════════════════════════ -->
     <div class="section-label">
         <h2>Current Event</h2>
@@ -618,7 +656,8 @@
 
     <div class="event-card">
         <div class="img-frame event-img-frame">
-            <img src="" alt="4th Annual Punjabi Mela" class="frame-img"
+            <img src="images/mela-2026.jpg" alt="4th Annual Punjabi Mela" class="frame-img"
+                 style="--img-x: 50%; --img-y: 50%;"
                  onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                  onerror="this.remove()">
             <div class="frame-ph">Event Image</div>
@@ -667,12 +706,15 @@
              3. Change event-tag class "current" → "archived" and text to "Past Event".
              4. Add img src="images/your-event-photo.jpg" to the img tag.
              5. Update the Current Event section with the new event.
+             (Each photo also has its own --img-x / --img-y position
+             controls — see "IMAGE POSITION CONTROLS" near <body>.)
         ──────────────────────────────────────────────────────────── -->
 
         <!-- Punjabi Lohri 2026 — save event photo as images/lohri-2026.jpg -->
         <div class="event-card">
             <div class="img-frame event-img-frame">
                 <img src="images/lohri-2026.jpg" alt="Punjabi Lohri 2026" class="frame-img"
+                     style="--img-x: 50%; --img-y: 50%;"
                      onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
                 <div class="frame-ph">Image</div>
@@ -692,6 +734,7 @@
         <div class="event-card">
             <div class="img-frame event-img-frame">
                 <img src="images/nye-2026.jpg" alt="New Year's Eve Celebration 2026" class="frame-img"
+                     style="--img-x: 50%; --img-y: 50%;"
                      onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
                 <div class="frame-ph">Image</div>
@@ -711,6 +754,7 @@
         <div class="event-card">
             <div class="img-frame event-img-frame">
                 <img src="images/karwa-chauth-2025.jpg" alt="Pre-Karwa Chauth Celebration 2025" class="frame-img"
+                     style="--img-x: 50%; --img-y: 50%;"
                      onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
                 <div class="frame-ph">Image</div>
@@ -730,6 +774,7 @@
         <div class="event-card">
             <div class="img-frame event-img-frame">
                 <img src="images/mela-2025.jpg" alt="3rd Punjabi Mela 2025" class="frame-img"
+                     style="--img-x: 50%; --img-y: 50%;"
                      onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
                 <div class="frame-ph">Image</div>
