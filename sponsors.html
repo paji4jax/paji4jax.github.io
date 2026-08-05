@@ -20,6 +20,9 @@
             --text:       #1A1A2E;
             --muted:      #5E5E72;
             --border:     #DDD5C5;
+            /* Diamond tier — icy blue, distinct from gold/silver */
+            --diamond:    #5EC8E8;
+            --diamond-lt: #AEEBFF;
         }
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -236,12 +239,14 @@
         .intro {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 64px 30px 50px;
+            padding: 48px 30px 40px;
             text-align: center;
         }
-        .intro h2 { font-size: 2.3rem; color: var(--navy); margin-bottom: 6px; }
+        .intro h2 { font-size: 2.2rem; color: var(--navy); margin-bottom: 6px; }
         .intro .rule-tri { margin: 12px auto 22px; }
         .intro p { color: var(--muted); max-width: 660px; margin: 0 auto; font-size: 0.97rem; }
+        .intro-link { color: var(--saffron); font-weight: 600; text-decoration: underline; white-space: nowrap; }
+        .intro-link:hover { color: var(--saffron-lt); }
 
         /* ══════════════════════════════
            SPONSORS SECTION
@@ -249,11 +254,28 @@
         .sponsors-section {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 0 30px 80px;
+            padding: 0 30px 70px;
         }
 
-        /* Tier block */
-        .tier-block { margin-bottom: 58px; }
+        /* Tier block. Each tier sets --logo-col / --logo-w / --logo-h /
+           --name-size / --desc-size / --pad, which the shared
+           .sponsor-row / .logo-frame / .sponsor-name rules read —
+           this is how Diamond ends up visually larger than Gold,
+           and Gold larger than Silver, from one shared template. */
+        .tier-block { margin-bottom: 50px; }
+
+        .tier-block.diamond {
+            --logo-col: 250px; --logo-w: 204px; --logo-h: 148px;
+            --name-size: 1.65rem; --desc-size: 0.98rem; --pad: 32px;
+        }
+        .tier-block.gold {
+            --logo-col: 190px; --logo-w: 150px; --logo-h: 112px;
+            --name-size: 1.35rem; --desc-size: 0.92rem; --pad: 24px;
+        }
+        .tier-block.silver {
+            --logo-col: 132px; --logo-w: 98px; --logo-h: 78px;
+            --name-size: 1.05rem; --desc-size: 0.85rem; --pad: 16px;
+        }
 
         .tier-heading {
             display: flex;
@@ -264,6 +286,17 @@
             border-bottom: 1px solid var(--border);
         }
         .tier-heading h3 { font-size: 1.6rem; color: var(--navy); }
+
+        /* Gold and Silver sponsors sit in a multi-column grid instead of
+           one long vertical stack — Diamond stays full-width rows since
+           it's the smallest tier by count and biggest by card size. */
+        .tier-grid {
+            display: grid;
+            gap: 16px;
+        }
+        .tier-grid .sponsor-row { margin-bottom: 0; }
+        .tier-block.gold   .tier-grid { grid-template-columns: repeat(2, 1fr); }
+        .tier-block.silver .tier-grid { grid-template-columns: repeat(3, 1fr); }
 
         .tier-badge {
             font-family: 'Mukta', sans-serif;
@@ -277,49 +310,73 @@
         }
         .tier-badge.gold-tier   { background: var(--gold); color: #1a1a1a; }
         .tier-badge.silver-tier { background: #7a8a96; }
-        .tier-badge.bronze-tier { background: #9a5c30; }
-        .tier-badge.partner     { background: var(--green); }
+
+        /* Diamond badge — glowing icy-blue aura, per request */
+        .tier-badge.diamond-tier {
+            background: linear-gradient(135deg, var(--diamond-lt), var(--diamond));
+            color: #0B3550;
+            animation: diamond-glow 2.4s ease-in-out infinite;
+        }
+        @keyframes diamond-glow {
+            0%, 100% { box-shadow: 0 0 8px 2px rgba(94,200,232,0.55), 0 0 18px 5px rgba(94,200,232,0.28); }
+            50%      { box-shadow: 0 0 12px 4px rgba(94,200,232,0.8),  0 0 28px 9px rgba(94,200,232,0.45); }
+        }
 
         /* ── SPONSOR ROW ──
-           Tier accent left border applied per tier-block child. */
+           Size (logo width/height, name/desc font, padding) comes from
+           the --logo-col / --logo-w / --logo-h / --name-size / --desc-size
+           / --pad variables set on the parent .tier-block.* above. */
         .sponsor-row {
             background: #fff;
             border: 1px solid var(--border);
             border-radius: 2px;
             display: grid;
-            grid-template-columns: 210px 1fr;
+            grid-template-columns: var(--logo-col, 210px) 1fr;
             overflow: hidden;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
             transition: box-shadow 0.25s;
         }
         .sponsor-row:hover { box-shadow: 0 6px 26px rgba(28,43,74,0.1); }
 
-        .tier-block:nth-child(1) .sponsor-row { border-left: 4px solid var(--gold); }
-        .tier-block:nth-child(2) .sponsor-row { border-left: 4px solid #7a8a96; }
-        .tier-block:nth-child(3) .sponsor-row { border-left: 4px solid #9a5c30; }
-        .tier-block:nth-child(4) .sponsor-row { border-left: 4px solid var(--green); }
+        .tier-block.diamond .sponsor-row { border-left: 4px solid var(--diamond); }
+        .tier-block.gold    .sponsor-row { border-left: 4px solid var(--gold); }
+        .tier-block.silver  .sponsor-row { border-left: 4px solid #7a8a96; }
 
-        /* ── LOGO AREA (imgur-compatible) ──
-           To add a logo: set src="https://i.imgur.com/YOURCODE.jpeg"
-           and update the href on .sponsor-logo-link to the real URL.
-           The placeholder text disappears automatically on load.         */
-        .sponsor-logo-link {
+        /* Logos are Diamond-only — Gold and Silver cards have no logo
+           column at all, just the info area at full width. */
+        .tier-block.gold .sponsor-row,
+        .tier-block.silver .sponsor-row {
+            grid-template-columns: 1fr;
+        }
+
+        /* A handful of Diamond sponsors have no logo and no website either —
+           .sponsor-row.no-logo drops the logo column for just those cards
+           so there's no empty box implying a logo was supposed to go there. */
+        .sponsor-row.no-logo { grid-template-columns: 1fr; }
+
+        /* ── LOGO AREA (local /images folder) ──
+           To add a logo: save the file in /images and set
+           src="images/your-file-name.png" on the logo <img>.
+           .sponsor-logo-link (an <a>) is used when a real website was
+           found — it links out and shows a "Visit ..." label.
+           .sponsor-logo-box (a plain <div>, no link) is used when no
+           website could be confirmed — same look, no click-through. */
+        .sponsor-logo-link, .sponsor-logo-box {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 26px 18px;
+            padding: var(--pad, 26px) 14px;
             background: var(--cream);
             border-right: 1px solid var(--border);
-            text-decoration: none;
             gap: 10px;
-            transition: background 0.2s;
         }
+        .sponsor-logo-link { text-decoration: none; transition: background 0.2s; }
         .sponsor-logo-link:hover { background: var(--cream-dk); }
 
         .logo-frame {
-            width: 136px;
-            height: 84px;
+            width: var(--logo-w, 136px);
+            height: var(--logo-h, 84px);
             position: relative;
             overflow: hidden;
             background: #fff;
@@ -342,7 +399,7 @@
             align-items: center;
             justify-content: center;
             color: #c4b8a8;
-            font-size: 0.74rem;
+            font-size: 0.7rem;
             font-weight: 500;
             letter-spacing: 0.3px;
             text-align: center;
@@ -352,46 +409,56 @@
 
         .logo-visit-label {
             font-family: 'Mukta', sans-serif;
-            font-size: 0.66rem;
+            font-size: 0.64rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.8px;
             color: #bbb;
+            text-align: center;
         }
 
         /* ── INFO AREA ── */
         .sponsor-info {
-            padding: 26px 32px;
+            padding: var(--pad, 26px) 30px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
-        /* Sponsor name — clickable, links to their website */
-        .sponsor-name-link {
+        /* Sponsor / business name — .sponsor-name-link when a website
+           was found (clickable), .sponsor-name (plain text) when not. */
+        .sponsor-name-link, .sponsor-name {
             display: inline-block;
             font-family: 'EB Garamond', serif;
-            font-size: 1.45rem;
+            font-size: var(--name-size, 1.45rem);
             font-weight: 600;
             color: var(--navy);
-            text-decoration: none;
-            margin-bottom: 10px;
-            transition: color 0.2s;
+            margin-bottom: 6px;
         }
+        .sponsor-name-link { text-decoration: none; transition: color 0.2s; }
         .sponsor-name-link:hover { color: var(--saffron); text-decoration: underline; }
 
-        .sponsor-desc {
-            font-size: 0.92rem;
+        /* "Sponsored by ..." credit line naming the person(s) behind the business */
+        .sponsor-credit {
+            display: block;
+            font-size: 0.8rem;
+            font-style: italic;
             color: var(--muted);
-            line-height: 1.72;
-            margin-bottom: 16px;
+            margin-bottom: 10px;
+        }
+
+        .sponsor-desc {
+            font-size: var(--desc-size, 0.92rem);
+            color: var(--muted);
+            line-height: 1.65;
+            margin-bottom: 14px;
             max-width: 580px;
         }
 
         .sponsor-website {
             display: inline-block;
             font-family: 'Mukta', sans-serif;
-            font-size: 0.76rem;
+            font-size: 0.74rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.8px;
@@ -403,37 +470,34 @@
         .sponsor-website::after { content: ' \2197'; }
         .sponsor-website:hover { border-color: var(--saffron); }
 
-        /* ══════════════════════════════
-           BECOME A SPONSOR CTA
-        ══════════════════════════════ */
-        .sponsor-cta {
-            background: var(--cream-dk);
-            padding: 48px 40px;
-            text-align: center;
-        }
-        .sponsor-cta h2 { font-size: 2rem; color: var(--navy); margin-bottom: 14px; }
-        .sponsor-cta p  { color: var(--muted); max-width: 560px; margin: 0 auto 30px; font-size: 0.97rem; font-family: 'Mukta', sans-serif; }
-
-        .tiers-row {
+        /* ── PERSONAL SPONSOR ──
+           No business, so no logo column, no link — just the name(s)
+           and a small label, left-aligned like every other card. */
+        .sponsor-row.personal {
+            grid-template-columns: 1fr;
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            gap: 14px;
-            flex-wrap: wrap;
-            margin-bottom: 32px;
+            text-align: left;
+            padding: 22px 24px;
         }
-        .tier-pill {
+        .personal-name {
+            display: block;
+            font-family: 'EB Garamond', serif;
+            font-size: var(--name-size, 1.05rem);
+            font-weight: 600;
+            color: var(--navy);
+        }
+        .personal-label {
+            display: block;
             font-family: 'Mukta', sans-serif;
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
-            padding: 8px 20px;
-            border-radius: 2px;
+            letter-spacing: 1px;
+            color: var(--muted);
+            margin-top: 6px;
         }
-        .tier-pill.gold   { background: var(--gold); color: #1a1a1a; }
-        .tier-pill.silver { background: #7a8a96; color: #fff; }
-        .tier-pill.bronze { background: #9a5c30; color: #fff; }
-        .tier-pill.partner { background: var(--green); color: #fff; }
 
         .btn {
             display: inline-block;
@@ -522,13 +586,17 @@
         /* ══════════════════════════════
            RESPONSIVE
         ══════════════════════════════ */
+        @media (max-width: 1000px) {
+            .tier-block.silver .tier-grid { grid-template-columns: repeat(2, 1fr); }
+        }
         @media (max-width: 900px) {
+            .tier-grid { grid-template-columns: 1fr !important; }
             .sponsor-row { grid-template-columns: 1fr; border-left: none; border-top: 4px solid; }
-            .tier-block:nth-child(1) .sponsor-row { border-top-color: var(--gold); }
-            .tier-block:nth-child(2) .sponsor-row { border-top-color: #7a8a96; }
-            .tier-block:nth-child(3) .sponsor-row { border-top-color: #9a5c30; }
-            .tier-block:nth-child(4) .sponsor-row { border-top-color: var(--green); }
-            .sponsor-logo-link { border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; justify-content: flex-start; gap: 18px; padding: 18px 24px; }
+            .sponsor-row.personal { border-top-width: 4px; }
+            .tier-block.diamond .sponsor-row { border-top-color: var(--diamond); }
+            .tier-block.gold    .sponsor-row { border-top-color: var(--gold); }
+            .tier-block.silver  .sponsor-row { border-top-color: #7a8a96; }
+            .sponsor-logo-link, .sponsor-logo-box { border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; justify-content: flex-start; gap: 18px; padding: 16px 22px; }
             .footer-inner { grid-template-columns: 1fr 1fr; }
             .nav-toggle { display: flex; }
             .nav-drawer {
@@ -593,7 +661,7 @@
     <div class="nav-inner">
         <a href="index.html" class="nav-brand">
             <div class="brand-mark">
-                    <!-- PAJI Logo: set src="https://i.imgur.com/YOURCODE.png" to display official seal -->
+                    <!-- PAJI Logo — save as logo.png in the repo root (transparent PNG works best) -->
                     <img src="logo.png" alt="PAJI" class="brand-logo-img"
                          onload="this.classList.add('loaded')"
                          onerror="this.remove()">
@@ -635,184 +703,300 @@
 <div class="intro">
     <h2>Thank You to Our Supporters</h2>
     <div class="rule-tri"><span></span><span></span><span></span></div>
-    <p>PAJI's events and programs are made possible through the generous support of our sponsors. We are proud to partner with businesses and organizations that share our commitment to culture, family, and community.</p>
+    <p>PAJI's events and programs are made possible through the generous support of our sponsors. We are proud to partner with businesses, professionals, and individuals who share our commitment to culture, family, and community. <a href="contact.html#message-form" class="intro-link">Inquire about sponsorship here.</a></p>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════
      SPONSORS
-     For each sponsor:
-       1. Set the href on .sponsor-logo-link to their website URL.
-       2. Add src="https://i.imgur.com/YOURCODE.jpeg" to the logo <img>.
-       3. Set the href on .sponsor-name-link to their website URL.
-       4. Update the name, description text, and .sponsor-website href.
+     Three tiers: Diamond (largest), Gold (medium), Silver (compact).
+     Each tier's card size comes from CSS variables set on its
+     .tier-block — see "--logo-col / --name-size / ..." in the
+     <style> above. No per-card sizing needed here.
+
+     For each BUSINESS sponsor (has a real business + confirmed website):
+       - Use .sponsor-logo-link (an <a>) around the logo, href = their site.
+       - Use .sponsor-name-link (an <a>) for the name, same href.
+       - Keep the .sponsor-website "Visit ..." link at the bottom.
+       - Save their logo to /images and set it as the logo <img> src.
+
+     For a business with NO confirmed website:
+       - Swap .sponsor-logo-link → .sponsor-logo-box (plain <div>, no href).
+       - Swap .sponsor-name-link → .sponsor-name (plain text, no href).
+       - Remove the .sponsor-website link and the "Visit ..." label.
+       - The logo placeholder stays — add their logo file whenever you get it.
+
+     For a PERSONAL sponsor (no business at all):
+       - Use the compact <div class="sponsor-row personal"> pattern —
+         no logo, just the name(s) and "Individual Supporter" label.
 ══════════════════════════════════════════════════════════ -->
 <section class="sponsors-section">
 
-    <!-- ── GOLD SPONSORS ── -->
-    <div class="tier-block">
+    <!-- ══════════════════════════════ DIAMOND SPONSORS ══════════════════════════════ -->
+    <div class="tier-block diamond">
+        <div class="tier-heading">
+            <h3>Diamond Sponsors</h3>
+            <span class="tier-badge diamond-tier">Diamond</span>
+        </div>
+
+        <!-- UF Health — sponsored by Ritu Grewal -->
+        <div class="sponsor-row">
+            <a href="https://ufhealthjax.org" target="_blank" rel="noopener" class="sponsor-logo-link" title="Visit UF Health">
+                <div class="logo-frame">
+                    <img src="images/uf-health.png" alt="UF Health logo" class="logo-img"
+                         onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
+                         onerror="this.remove()">
+                    <div class="logo-ph">Logo</div>
+                </div>
+                <span class="logo-visit-label">Visit Website</span>
+            </a>
+            <div class="sponsor-info">
+                <a href="https://ufhealthjax.org" target="_blank" rel="noopener" class="sponsor-name-link">UF Health</a>
+                <span class="sponsor-credit">Sponsored by Ritu Grewal</span>
+                <p class="sponsor-desc">Northeast Florida's academic health system, providing comprehensive hospital and specialty care in Jacksonville.</p>
+                <a href="https://ufhealthjax.org" target="_blank" rel="noopener" class="sponsor-website">Visit Website</a>
+            </div>
+        </div>
+
+        <!-- BW Engineers & Planners, Inc. — sponsored by Bikram Wadhawan — no confirmed website or logo -->
+        <div class="sponsor-row no-logo">
+            <div class="sponsor-info">
+                <div class="sponsor-name">BW Engineers &amp; Planners, Inc.</div>
+                <span class="sponsor-credit">Sponsored by Bikram Wadhawan</span>
+                <p class="sponsor-desc">Jacksonville-based traffic and transportation engineering and planning firm.</p>
+            </div>
+        </div>
+
+        <!-- North Florida Medical Center — sponsored by Miraj Patel -->
+        <div class="sponsor-row">
+            <a href="https://nfmcjax.com" target="_blank" rel="noopener" class="sponsor-logo-link" title="Visit North Florida Medical Center">
+                <div class="logo-frame">
+                    <img src="images/north_florida_medical.svg" alt="North Florida Medical Center logo" class="logo-img"
+                         onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
+                         onerror="this.remove()">
+                    <div class="logo-ph">Logo</div>
+                </div>
+                <span class="logo-visit-label">Visit Website</span>
+            </a>
+            <div class="sponsor-info">
+                <a href="https://nfmcjax.com" target="_blank" rel="noopener" class="sponsor-name-link">North Florida Medical Center</a>
+                <span class="sponsor-credit">Sponsored by Miraj Patel</span>
+                <p class="sponsor-desc">Family medicine, chiropractic care, and pain management serving Jacksonville and Orange Park.</p>
+                <a href="https://nfmcjax.com" target="_blank" rel="noopener" class="sponsor-website">Visit Website</a>
+            </div>
+        </div>
+
+        <!-- Campione Law — sponsored by Miraj Patel -->
+        <div class="sponsor-row">
+            <a href="https://campionelawpa.com" target="_blank" rel="noopener" class="sponsor-logo-link" title="Visit Campione Law">
+                <div class="logo-frame">
+                    <img src="images/campione-law.png" alt="Campione Law logo" class="logo-img"
+                         onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
+                         onerror="this.remove()">
+                    <div class="logo-ph">Logo</div>
+                </div>
+                <span class="logo-visit-label">Visit Website</span>
+            </a>
+            <div class="sponsor-info">
+                <a href="https://campionelawpa.com" target="_blank" rel="noopener" class="sponsor-name-link">Campione Law</a>
+                <span class="sponsor-credit">Sponsored by Miraj Patel</span>
+                <p class="sponsor-desc">Personal injury, real estate, and business law firm serving Jacksonville and North Florida.</p>
+                <a href="https://campionelawpa.com" target="_blank" rel="noopener" class="sponsor-website">Visit Website</a>
+            </div>
+        </div>
+
+        <!-- MERSER — sponsored by Munish Paul, Rajesh Sood, Sachin Oberai & Rajeev Salooja — no confirmed website or logo -->
+        <div class="sponsor-row no-logo">
+            <div class="sponsor-info">
+                <div class="sponsor-name">MERSER</div>
+                <span class="sponsor-credit">Sponsored by Munish Paul, Rajesh Sood, Sachin Oberai &amp; Rajeev Salooja</span>
+                <p class="sponsor-desc">Proud supporters of PAJI and Jacksonville's Punjabi community.</p>
+            </div>
+        </div>
+
+        <!-- Masti Mania — sponsored by Vik Singh — Facebook page in place of a website -->
+        <div class="sponsor-row">
+            <a href="https://www.facebook.com/MastiManiaJax" target="_blank" rel="noopener" class="sponsor-logo-link" title="Visit Masti Mania's Facebook page">
+                <div class="logo-frame">
+                    <img src="images/masti-mania.png" alt="Masti Mania logo" class="logo-img"
+                         onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
+                         onerror="this.remove()">
+                    <div class="logo-ph">Logo</div>
+                </div>
+                <span class="logo-visit-label">Facebook Page</span>
+            </a>
+            <div class="sponsor-info">
+                <a href="https://www.facebook.com/MastiManiaJax" target="_blank" rel="noopener" class="sponsor-name-link">Masti Mania</a>
+                <span class="sponsor-credit">Sponsored by Vik Singh</span>
+                <p class="sponsor-desc">Event entertainment company providing DJ, decor, and event production services in Jacksonville.</p>
+                <a href="https://www.facebook.com/MastiManiaJax" target="_blank" rel="noopener" class="sponsor-website">Visit Facebook Page</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════ GOLD SPONSORS ══════════════════════════════ -->
+    <div class="tier-block gold">
         <div class="tier-heading">
             <h3>Gold Sponsors</h3>
             <span class="tier-badge gold-tier">Gold</span>
         </div>
+        <div class="tier-grid">
 
+        <!-- Arthritis & Rheumatology Care Center — sponsored by Dr. Manish Relan -->
         <div class="sponsor-row">
-            <a href="#" class="sponsor-logo-link" title="Visit sponsor website">
-                <div class="logo-frame">
-                    <img src="" alt="Sponsor logo" class="logo-img"
-                         onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
-                         onerror="this.remove()">
-                    <div class="logo-ph">Logo</div>
-                </div>
-                <span class="logo-visit-label">Visit Website</span>
-            </a>
             <div class="sponsor-info">
-                <a href="#" class="sponsor-name-link">Sponsor Name</a>
-                <p class="sponsor-desc">A proud Gold Sponsor and longstanding supporter of PAJI's annual celebrations. Their generous contribution helps us bring authentic Punjabi culture to Jacksonville and ensures our events remain accessible to all families in our community.</p>
-                <a href="#" class="sponsor-website">Visit Website</a>
+                <a href="https://www.jaxarthritis.com" target="_blank" rel="noopener" class="sponsor-name-link">Arthritis &amp; Rheumatology Care Center</a>
+                <span class="sponsor-credit">Sponsored by Dr. Manish Relan</span>
+                <p class="sponsor-desc">Specialized rheumatology care serving Jacksonville and Palatka.</p>
+                <a href="https://www.jaxarthritis.com" target="_blank" rel="noopener" class="sponsor-website">Visit Website</a>
             </div>
         </div>
 
+        <!-- SOHETS Photography — sponsored by Soham and Hetal — no confirmed website -->
         <div class="sponsor-row">
-            <a href="#" class="sponsor-logo-link" title="Visit sponsor website">
-                <div class="logo-frame">
-                    <img src="" alt="Sponsor logo" class="logo-img"
-                         onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
-                         onerror="this.remove()">
-                    <div class="logo-ph">Logo</div>
-                </div>
-                <span class="logo-visit-label">Visit Website</span>
-            </a>
             <div class="sponsor-info">
-                <a href="#" class="sponsor-name-link">Sponsor Name</a>
-                <p class="sponsor-desc">A valued Gold Sponsor whose significant contribution makes our largest events possible. Their commitment to community reflects the shared values of family, cultural pride, and service that define everything PAJI stands for.</p>
-                <a href="#" class="sponsor-website">Visit Website</a>
+                <div class="sponsor-name">SOHETS Photography</div>
+                <span class="sponsor-credit">Sponsored by Soham and Hetal</span>
+                <p class="sponsor-desc">Photography services for weddings and special occasions.</p>
             </div>
         </div>
+
+        <!-- Florida Homes Realty & Mortgage Property Management — sponsored by Suki Hunjan -->
+        <div class="sponsor-row">
+            <div class="sponsor-info">
+                <a href="https://www.yourfhrm.com" target="_blank" rel="noopener" class="sponsor-name-link">Florida Homes Realty &amp; Mortgage Property Management</a>
+                <span class="sponsor-credit">Sponsored by Suki Hunjan</span>
+                <p class="sponsor-desc">Full-service real estate brokerage and property management across Northeast Florida.</p>
+                <a href="https://www.yourfhrm.com" target="_blank" rel="noopener" class="sponsor-website">Visit Website</a>
+            </div>
+        </div>
+
+        <!-- First Coast Heart & Vascular Center — sponsored by Dr. Dinesh Pubbi -->
+        <div class="sponsor-row">
+            <div class="sponsor-info">
+                <a href="https://www.firstcoastheart.com" target="_blank" rel="noopener" class="sponsor-name-link">First Coast Heart &amp; Vascular Center</a>
+                <span class="sponsor-credit">Sponsored by Dr. Dinesh Pubbi</span>
+                <p class="sponsor-desc">Comprehensive cardiovascular care across Northeast Florida.</p>
+                <a href="https://www.firstcoastheart.com" target="_blank" rel="noopener" class="sponsor-website">Visit Website</a>
+            </div>
+        </div>
+
+        <!-- Turmeric Kitchen (Guru Dayal LLC) — sponsored by Chandeep Singh & Arleen Kaur -->
+        <div class="sponsor-row">
+            <div class="sponsor-info">
+                <a href="https://clayturmeric.com" target="_blank" rel="noopener" class="sponsor-name-link">Turmeric Kitchen</a>
+                <span class="sponsor-credit">Sponsored by Chandeep Singh &amp; Arleen Kaur (Guru Dayal LLC)</span>
+                <p class="sponsor-desc">Indian restaurant serving Clay County and the greater Jacksonville area.</p>
+                <a href="https://clayturmeric.com" target="_blank" rel="noopener" class="sponsor-website">Visit Website</a>
+            </div>
+        </div>
+
+        </div><!-- /.tier-grid -->
     </div>
 
-    <!-- ── SILVER SPONSORS ── -->
-    <div class="tier-block">
+    <!-- ══════════════════════════════ SILVER SPONSORS ══════════════════════════════ -->
+    <div class="tier-block silver">
         <div class="tier-heading">
             <h3>Silver Sponsors</h3>
             <span class="tier-badge silver-tier">Silver</span>
         </div>
+        <div class="tier-grid">
 
+        <!-- Gulani Vision — sponsored by Dr. Arun Gulani -->
         <div class="sponsor-row">
-            <a href="#" class="sponsor-logo-link" title="Visit sponsor website">
-                <div class="logo-frame">
-                    <img src="" alt="Sponsor logo" class="logo-img"
-                         onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
-                         onerror="this.remove()">
-                    <div class="logo-ph">Logo</div>
-                </div>
-                <span class="logo-visit-label">Visit Website</span>
-            </a>
             <div class="sponsor-info">
-                <a href="#" class="sponsor-name-link">Sponsor Name</a>
-                <p class="sponsor-desc">An important contributor to PAJI's cultural programming, this Silver Sponsor's generosity extends our reach and allows us to provide enriching experiences for Punjabi families throughout the Jacksonville area.</p>
-                <a href="#" class="sponsor-website">Visit Website</a>
+                <a href="https://www.gulanivision.com" target="_blank" rel="noopener" class="sponsor-name-link">Gulani Vision</a>
+                <span class="sponsor-credit">Sponsored by Dr. Arun Gulani</span>
+                <p class="sponsor-desc">World-renowned LASIK and advanced vision correction institute.</p>
+                <a href="https://www.gulanivision.com" target="_blank" rel="noopener" class="sponsor-website">Visit Website</a>
             </div>
         </div>
 
+        <!-- Personal sponsors — no business -->
+        <div class="sponsor-row personal">
+            <div class="personal-name">Anshu &amp; Sneha Kalia</div>
+            <span class="personal-label">Individual Supporter</span>
+        </div>
+
+        <!-- WealthWave — sponsored by Parveen Kumar, Satinder Basra & Prince Kumar -->
         <div class="sponsor-row">
-            <a href="#" class="sponsor-logo-link" title="Visit sponsor website">
-                <div class="logo-frame">
-                    <img src="" alt="Sponsor logo" class="logo-img"
-                         onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
-                         onerror="this.remove()">
-                    <div class="logo-ph">Logo</div>
-                </div>
-                <span class="logo-visit-label">Visit Website</span>
-            </a>
             <div class="sponsor-info">
-                <a href="#" class="sponsor-name-link">Sponsor Name</a>
-                <p class="sponsor-desc">A trusted Silver Sponsor whose continued investment allows PAJI to grow its community outreach and youth programs year after year. We are grateful for their partnership and belief in our mission.</p>
-                <a href="#" class="sponsor-website">Visit Website</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- ── BRONZE SPONSORS ── -->
-    <div class="tier-block">
-        <div class="tier-heading">
-            <h3>Bronze Sponsors</h3>
-            <span class="tier-badge bronze-tier">Bronze</span>
-        </div>
-
-        <div class="sponsor-row">
-            <a href="#" class="sponsor-logo-link" title="Visit sponsor website">
-                <div class="logo-frame">
-                    <img src="" alt="Sponsor logo" class="logo-img"
-                         onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
-                         onerror="this.remove()">
-                    <div class="logo-ph">Logo</div>
-                </div>
-                <span class="logo-visit-label">Visit Website</span>
-            </a>
-            <div class="sponsor-info">
-                <a href="#" class="sponsor-name-link">Sponsor Name</a>
-                <p class="sponsor-desc">A valued Bronze Sponsor who has shown genuine goodwill toward the PAJI community. Their support is deeply appreciated and contributes directly to the success of our events and outreach programs throughout the year.</p>
-                <a href="#" class="sponsor-website">Visit Website</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- ── COMMUNITY PARTNERS ── -->
-    <div class="tier-block">
-        <div class="tier-heading">
-            <h3>Community Partners</h3>
-            <span class="tier-badge partner">Partner</span>
-        </div>
-
-        <div class="sponsor-row">
-            <a href="#" class="sponsor-logo-link" title="Visit partner website">
-                <div class="logo-frame">
-                    <img src="" alt="Partner logo" class="logo-img"
-                         onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
-                         onerror="this.remove()">
-                    <div class="logo-ph">Logo</div>
-                </div>
-                <span class="logo-visit-label">Visit Website</span>
-            </a>
-            <div class="sponsor-info">
-                <a href="#" class="sponsor-name-link">Partner Organization</a>
-                <p class="sponsor-desc">A community partner that collaborates with PAJI on outreach initiatives, charitable programs, and shared cultural events. Together we serve Jacksonville's diverse communities with a shared sense of purpose and belonging.</p>
-                <a href="#" class="sponsor-website">Visit Website</a>
+                <a href="https://wealthwave.com" target="_blank" rel="noopener" class="sponsor-name-link">WealthWave</a>
+                <span class="sponsor-credit">Sponsored by Parveen Kumar, Satinder Basra &amp; Prince Kumar</span>
+                <p class="sponsor-desc">Financial education and services.</p>
+                <a href="https://wealthwave.com" target="_blank" rel="noopener" class="sponsor-website">Visit Website</a>
             </div>
         </div>
 
+        <!-- Deerwood Jewelers — sponsored by Parag Shah -->
         <div class="sponsor-row">
-            <a href="#" class="sponsor-logo-link" title="Visit partner website">
-                <div class="logo-frame">
-                    <img src="" alt="Partner logo" class="logo-img"
-                         onload="this.classList.add('loaded'); this.closest('.logo-frame').classList.add('loaded')"
-                         onerror="this.remove()">
-                    <div class="logo-ph">Logo</div>
-                </div>
-                <span class="logo-visit-label">Visit Website</span>
-            </a>
             <div class="sponsor-info">
-                <a href="#" class="sponsor-name-link">Partner Organization</a>
-                <p class="sponsor-desc">This partner shares our values of cultural celebration and community service. We are proud to work alongside them in making Jacksonville a more vibrant, connected, and welcoming city for families of all backgrounds.</p>
-                <a href="#" class="sponsor-website">Visit Website</a>
+                <a href="https://deerwoodjewelers.com" target="_blank" rel="noopener" class="sponsor-name-link">Deerwood Jewelers</a>
+                <span class="sponsor-credit">Sponsored by Parag Shah</span>
+                <p class="sponsor-desc">Family-owned custom bridal and fine jewelry store in Jacksonville.</p>
+                <a href="https://deerwoodjewelers.com" target="_blank" rel="noopener" class="sponsor-website">Visit Website</a>
             </div>
         </div>
+
+        <!-- La Rosa Realty — sponsored by Falguni Patel -->
+        <div class="sponsor-row">
+            <div class="sponsor-info">
+                <a href="https://larosarealtyjax.com" target="_blank" rel="noopener" class="sponsor-name-link">La Rosa Realty</a>
+                <span class="sponsor-credit">Sponsored by Falguni Patel</span>
+                <p class="sponsor-desc">Residential real estate services in Jacksonville.</p>
+                <a href="https://larosarealtyjax.com" target="_blank" rel="noopener" class="sponsor-website">Visit Website</a>
+            </div>
+        </div>
+
+        <!-- Aim Realty — sponsored by Inder Arora -->
+        <div class="sponsor-row">
+            <div class="sponsor-info">
+                <a href="https://aimrealtypros.com" target="_blank" rel="noopener" class="sponsor-name-link">Aim Realty</a>
+                <span class="sponsor-credit">Sponsored by Inder Arora</span>
+                <p class="sponsor-desc">Residential and commercial real estate brokerage in Jacksonville.</p>
+                <a href="https://aimrealtypros.com" target="_blank" rel="noopener" class="sponsor-website">Visit Website</a>
+            </div>
+        </div>
+
+        <!-- Bollywood Dance Mania — sponsored by Anushree — Facebook page in place of a website -->
+        <div class="sponsor-row">
+            <div class="sponsor-info">
+                <a href="https://www.facebook.com/BDMJAX" target="_blank" rel="noopener" class="sponsor-name-link">Bollywood Dance Mania</a>
+                <span class="sponsor-credit">Sponsored by Anushree</span>
+                <p class="sponsor-desc">Bollywood and Bhangra dance instruction and performance troupe.</p>
+                <a href="https://www.facebook.com/BDMJAX" target="_blank" rel="noopener" class="sponsor-website">Visit Facebook Page</a>
+            </div>
+        </div>
+
+        <!-- Personal sponsors — no business -->
+        <div class="sponsor-row personal">
+            <div class="personal-name">Gurjot &amp; Ishar</div>
+            <span class="personal-label">Individual Supporter</span>
+        </div>
+
+        <!-- Rebound Rehabilitation — sponsored by Hemant Patel, Owner & CEO -->
+        <div class="sponsor-row">
+            <div class="sponsor-info">
+                <a href="https://reboundrehab.com" target="_blank" rel="noopener" class="sponsor-name-link">Rebound Rehabilitation</a>
+                <span class="sponsor-credit">Sponsored by Hemant Patel, Owner &amp; CEO</span>
+                <p class="sponsor-desc">Outpatient physical therapy and rehabilitation clinic in Jacksonville.</p>
+                <a href="https://reboundrehab.com" target="_blank" rel="noopener" class="sponsor-website">Visit Website</a>
+            </div>
+        </div>
+
+        <!-- UF Health — sponsored by Dr. Suman Mayar -->
+        <div class="sponsor-row">
+            <div class="sponsor-info">
+                <a href="https://ufhealthjax.org" target="_blank" rel="noopener" class="sponsor-name-link">UF Health</a>
+                <span class="sponsor-credit">Sponsored by Dr. Suman Mayar</span>
+                <p class="sponsor-desc">Northeast Florida's academic health system, providing comprehensive hospital and specialty care in Jacksonville.</p>
+                <a href="https://ufhealthjax.org" target="_blank" rel="noopener" class="sponsor-website">Visit Website</a>
+            </div>
+        </div>
+
+        </div><!-- /.tier-grid -->
     </div>
 
 </section>
-
-<!-- BECOME A SPONSOR -->
-<div class="sponsor-cta">
-    <h2>Become a Sponsor</h2>
-    <p>Sponsoring PAJI is a meaningful way to support our community and connect with hundreds of engaged Punjabi families across Jacksonville. Packages available at multiple levels.</p>
-    <div class="tiers-row">
-        <span class="tier-pill gold">Gold</span>
-        <span class="tier-pill silver">Silver</span>
-        <span class="tier-pill bronze">Bronze</span>
-        <span class="tier-pill partner">Community Partner</span>
-    </div>
-    <a href="contact.html" class="btn btn-saffron">Enquire About Sponsorship</a>
-</div>
 
 <!-- FOOTER -->
 <footer class="footer">

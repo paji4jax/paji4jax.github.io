@@ -353,7 +353,10 @@
         }
         .member-card:nth-child(1) .member-role { background: var(--saffron); }
         .member-card:nth-child(2) .member-role { background: var(--green); }
-        .member-card:nth-child(3) .member-role { background: var(--gold); color: #1a1a1a; }
+        /* Darker gold than the border/photo accent so white text (matching
+           the other three badges) has proper contrast — plain white on
+           the lighter --gold fails contrast requirements. */
+        .member-card:nth-child(3) .member-role { background: #8A7209; }
         .member-card:nth-child(4) .member-role { background: var(--navy); }
 
         .member-divider {
