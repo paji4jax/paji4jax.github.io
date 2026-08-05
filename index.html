@@ -402,8 +402,8 @@
            BOARD SECTION
         ══════════════════════════════ */
         .board-section {
-            background: var(--navy);
-            padding: 72px 40px;
+            background: var(--cream-dk);
+            padding: 48px 40px;
             text-align: center;
         }
         .board-inner {
@@ -411,13 +411,13 @@
             margin: 0 auto;
         }
         .board-section h2 {
-            font-size: 2.3rem;
-            color: #fff;
+            font-size: 2.1rem;
+            color: var(--navy);
             margin-bottom: 6px;
         }
         .board-section .rule-tri { margin: 12px auto 18px; }
         .board-desc {
-            color: rgba(255,255,255,0.65);
+            color: var(--muted);
             font-size: 0.97rem;
             max-width: 580px;
             margin: 0 auto 34px;
@@ -432,7 +432,8 @@
             border-radius: 3px;
             overflow: hidden;
             position: relative;
-            background: rgba(255,255,255,0.06);
+            background: rgba(28,43,74,0.06);
+            border: 1px solid var(--border);
             margin: 0 auto 32px;
         }
         .board-img-frame .frame-img {
@@ -450,39 +451,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255,255,255,0.3);
+            color: #b8a898;
             font-size: 0.8rem;
             font-weight: 500;
             letter-spacing: 0.5px;
-            border: 1.5px dashed rgba(255,255,255,0.18);
+            border: 1.5px dashed #ccc4b4;
         }
         .board-img-frame.loaded .frame-ph { display: none; }
-
-        /* ══════════════════════════════
-           PILLARS
-        ══════════════════════════════ */
-        .pillars {
-            background: var(--green);
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-        }
-        .pillar {
-            padding: 52px 34px;
-            border-right: 1px solid rgba(255,255,255,0.1);
-            color: #fff;
-        }
-        .pillar:last-child { border-right: none; }
-        .pillar-num {
-            font-family: 'EB Garamond', serif;
-            font-size: 2.2rem;
-            font-weight: 400;
-            color: rgba(255,255,255,0.18);
-            line-height: 1;
-            margin-bottom: 16px;
-            display: block;
-        }
-        .pillar h3 { font-size: 1.2rem; margin-bottom: 12px; font-weight: 500; }
-        .pillar p { font-size: 0.9rem; opacity: 0.78; line-height: 1.65; }
 
         /* ══════════════════════════════
            FEATURES
@@ -624,42 +599,11 @@
         }
 
         /* ══════════════════════════════
-           STATS
-        ══════════════════════════════ */
-        .stats-bar {
-            background: var(--navy);
-            padding: 60px 40px;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            text-align: center;
-        }
-        .stat-item {
-            padding: 20px 24px;
-            border-right: 1px solid rgba(255,255,255,0.08);
-        }
-        .stat-item:last-child { border-right: none; }
-        .stat-num {
-            font-family: 'EB Garamond', serif;
-            font-size: 3rem;
-            font-weight: 500;
-            color: var(--gold-lt);
-            line-height: 1;
-            margin-bottom: 10px;
-        }
-        .stat-label {
-            color: rgba(255,255,255,0.55);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            font-family: 'Mukta', sans-serif;
-        }
-
-        /* ══════════════════════════════
            CTA
         ══════════════════════════════ */
-        .cta-strip { background: var(--saffron); padding: 64px 40px; text-align: center; color: #fff; }
-        .cta-strip h2 { font-size: 2.3rem; margin-bottom: 14px; }
-        .cta-strip p  { font-size: 1rem; opacity: 0.88; margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto; font-family: 'Mukta', sans-serif; }
+        .cta-strip { background: var(--cream-dk); padding: 48px 40px; text-align: center; }
+        .cta-strip h2 { font-size: 2rem; color: var(--navy); margin-bottom: 14px; }
+        .cta-strip p  { font-size: 1rem; color: var(--muted); margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto; font-family: 'Mukta', sans-serif; }
 
         /* ══════════════════════════════
            FOOTER
@@ -735,8 +679,6 @@
         @media (max-width: 1100px) {
             .welcome { grid-template-columns: 1fr; gap: 44px; }
             .features-grid { grid-template-columns: 1fr 1fr; }
-            .pillars { grid-template-columns: repeat(2, 1fr); }
-            .stats-bar { grid-template-columns: repeat(2, 1fr); }
             .footer-inner { grid-template-columns: 1fr 1fr; }
             .featured-event { grid-template-columns: 1fr; }
             .fe-img-frame { min-height: 260px; }
@@ -779,15 +721,13 @@
         }
 
         @media (max-width: 768px) {
-            .board-section { padding: 52px 20px; }
+            .board-section { padding: 36px 20px; }
             .topbar { flex-direction: column; gap: 2px; padding: 7px 20px; text-align: center; font-size: 0.72rem; }
             .nav-inner { padding: 0 20px; }
             .hero { height: 80vh; max-height: 560px; }
             .hero-scroll { display: none; }
             .hero-sig { bottom: 18px; right: 20px; }
             .features-grid { grid-template-columns: 1fr; }
-            .pillars { grid-template-columns: 1fr 1fr; }
-            .stats-bar { grid-template-columns: 1fr 1fr; }
             .footer-inner { grid-template-columns: 1fr; }
             .footer-divider { flex-direction: column; gap: 6px; text-align: center; }
         }
@@ -896,6 +836,7 @@
                 <li><a href="committee.html">Committee</a></li>
                 <li><a href="events.html">Events</a></li>
                 <li><a href="sponsors.html">Sponsors</a></li>
+                <li><a href="donate.html">Donate</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </div>
@@ -917,6 +858,8 @@
         alt=""
         class="hero-img"
         style="--img-x: 50%; --img-y: 50%;"
+        fetchpriority="high"
+        decoding="async"
         onload="this.classList.add('loaded')"
         onerror="this.remove()">
     <div class="hero-vignette"></div>
@@ -941,9 +884,10 @@
     <!-- WELCOME IMAGE — save as images/welcome.jpg
          --img-x / --img-y (on the <img>) move the photo within the box.
          --frame-w / --frame-h (on this <div>) resize the box itself. -->
-    <div class="img-frame welcome-img-frame" style="--frame-w: 800px; --frame-h: 400px;">
+    <div class="img-frame welcome-img-frame" style="--frame-w: 600px; --frame-h: 400px;">
         <img src="images/welcome.jpg" alt="Welcome" class="frame-img"
              style="--img-x: 50%; --img-y: 50%;"
+             loading="lazy" decoding="async"
              onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
              onerror="this.remove()">
         <div class="frame-ph">Image</div>
@@ -963,37 +907,14 @@
         <div class="board-img-frame img-frame" style="--frame-w: 100%; --frame-h: 469px;">
             <img src="images/board-members.jpeg" alt="PAJI Board Members 2023–2026" class="frame-img"
                  style="--img-x: 50%; --img-y: 30%;"
-                 onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
+                 loading="lazy" decoding="async"
+             onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                  onerror="this.remove()">
             <div class="frame-ph">Board Members</div>
         </div>
         <a href="committee.html" class="btn btn-saffron">Meet the Committee</a>
     </div>
 </section>
-
-<!-- PILLARS -->
-<div class="pillars">
-    <div class="pillar">
-        <span class="pillar-num">01</span>
-        <h3>Culture</h3>
-        <p>Preserving Punjabi music, dance, language, and art for future generations born far from their ancestral homeland.</p>
-    </div>
-    <div class="pillar">
-        <span class="pillar-num">02</span>
-        <h3>Heritage</h3>
-        <p>Honoring the traditions of Punjab — from Vaisakhi to Lohri — with authenticity and community pride.</p>
-    </div>
-    <div class="pillar">
-        <span class="pillar-num">03</span>
-        <h3>Service</h3>
-        <p>Giving back to Jacksonville through food drives, scholarships, health fairs, and volunteer outreach programs.</p>
-    </div>
-    <div class="pillar">
-        <span class="pillar-num">04</span>
-        <h3>Family</h3>
-        <p>Creating safe, joyful spaces for every generation — from children learning Gurbani to seniors sharing stories.</p>
-    </div>
-</div>
 
 <!-- FEATURES -->
 <section class="features">
@@ -1015,7 +936,8 @@
             <div class="img-frame fc-img-frame" style="--frame-w: calc(100% - 36px); --frame-h: 190px;">
                 <img src="images/cultural-mela.jpg" alt="Cultural Festivals" class="frame-img"
                      style="--img-x: 50%; --img-y: 50%;"
-                     onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
+                     loading="lazy" decoding="async"
+             onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
                 <div class="frame-ph">Image</div>
             </div>
@@ -1030,7 +952,8 @@
             <div class="img-frame fc-img-frame" style="--frame-w: calc(100% - 36px); --frame-h: 190px;">
                 <img src="images/youth-program.jpg" alt="Youth Programs" class="frame-img"
                      style="--img-x: 50%; --img-y: 50%;"
-                     onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
+                     loading="lazy" decoding="async"
+             onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
                 <div class="frame-ph">Image</div>
             </div>
@@ -1045,7 +968,8 @@
             <div class="img-frame fc-img-frame" style="--frame-w: calc(100% - 36px); --frame-h: 190px;">
                 <img src="images/community-outreach.jpeg" alt="Community Outreach" class="frame-img"
                      style="--img-x: 50%; --img-y: 50%;"
-                     onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
+                     loading="lazy" decoding="async"
+             onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
                 <div class="frame-ph">Image</div>
             </div>
@@ -1075,7 +999,8 @@
             <div class="img-frame fe-img-frame" style="--frame-h: 320px;">
                 <img src="images/mela-2026.jpg" alt="4th Annual Punjabi Mela" class="frame-img"
                      style="--img-x: 50%; --img-y: 50%;"
-                     onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
+                     loading="lazy" decoding="async"
+             onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
                      onerror="this.remove()">
                 <div class="frame-ph">Event Image</div>
             </div>
@@ -1095,31 +1020,11 @@
     </div>
 </section>
 
-<!-- STATS -->
-<div class="stats-bar">
-    <div class="stat-item">
-        <div class="stat-num">500+</div>
-        <div class="stat-label">Member Families</div>
-    </div>
-    <div class="stat-item">
-        <div class="stat-num">3</div>
-        <div class="stat-label">Years Serving Jacksonville</div>
-    </div>
-    <div class="stat-item">
-        <div class="stat-num">4+</div>
-        <div class="stat-label">Annual Events</div>
-    </div>
-    <div class="stat-item">
-        <div class="stat-num">$50K+</div>
-        <div class="stat-label">Donated to Community</div>
-    </div>
-</div>
-
 <!-- CTA -->
 <section class="cta-strip">
     <h2>Be a Part of Our Community</h2>
     <p>Membership is open to all who share our love for Punjabi culture and the spirit of togetherness.</p>
-    <a href="contact.html" class="btn btn-white">Get in Touch</a>
+    <a href="contact.html" class="btn btn-saffron">Get in Touch</a>
 </section>
 
 <!-- FOOTER -->
@@ -1147,13 +1052,14 @@
             <a href="committee.html">Committee</a>
             <a href="events.html">Events</a>
             <a href="sponsors.html">Sponsors</a>
+            <a href="donate.html">Donate</a>
             <a href="contact.html">Contact</a>
         </div>
         <div class="footer-col">
             <h4>Get Involved</h4>
             <a href="contact.html">Volunteer</a>
             <a href="sponsors.html">Sponsor Us</a>
-            <a href="contact.html">Donate</a>
+            <a href="donate.html">Donate</a>
         </div>
         <div class="footer-col">
             <h4>Contact</h4>

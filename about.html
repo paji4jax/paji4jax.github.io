@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events — PAJI</title>
+    <title>About — PAJI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Mukta:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -197,7 +197,7 @@
             position: absolute;
             right: 0; top: 0; bottom: 0;
             width: 36%;
-            background: linear-gradient(135deg, transparent, rgba(201,78,24,0.14));
+            background: linear-gradient(135deg, transparent, rgba(42,99,67,0.18));
             pointer-events: none;
         }
         .page-header-inner {
@@ -231,200 +231,128 @@
         .rule-tri span:nth-child(3) { flex: 1; background: var(--green); }
 
         /* ══════════════════════════════
-           MAIN BODY
+           INTRO
         ══════════════════════════════ */
-        .page-body {
+        .intro {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 48px 30px 8px;
+            text-align: center;
+        }
+        .intro p { color: var(--muted); font-size: 1.05rem; line-height: 1.85; }
+        .intro strong { color: var(--navy); }
+
+        /* ══════════════════════════════
+           MISSION / VISION
+        ══════════════════════════════ */
+        .mv-section {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 60px 30px 80px;
+            padding: 36px 30px 44px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
         }
-
-        /* ══════════════════════════════
-           SECTION LABELS
-        ══════════════════════════════ */
-        .section-label {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-        .section-label h2 { font-size: 1.9rem; color: var(--navy); }
-        .label-tag {
-            font-family: 'Mukta', sans-serif;
-            font-size: 0.68rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            padding: 4px 12px;
-            border-radius: 2px;
-            color: #fff;
-        }
-        .label-tag.current  { background: var(--saffron); }
-        .label-tag.archived { background: var(--navy); color: rgba(255,255,255,0.7); }
-        .section-divider { border: none; border-top: 1px solid var(--border); margin-bottom: 32px; }
-
-        /* ══════════════════════════════
-           IMAGE FRAMES (local /images folder)
-           To add a photo: save the file in the "images" folder next to
-           this HTML file, then set src="images/your-file-name.jpg" on
-           the <img> tag. The grey placeholder hides automatically once
-           the photo loads.
-
-           To reposition a photo inside its frame, see the
-           "IMAGE POSITION CONTROLS" comment near the top of <body>.
-        ══════════════════════════════ */
-        .img-frame {
-            position: relative;
-            overflow: hidden;
-            background: var(--cream-dk);
-        }
-        .img-frame .frame-img {
-            position: absolute; inset: 0;
-            width: 100%; height: 100%;
-            object-fit: cover;
-            /* --img-x / --img-y are set per-image via inline style="" —
-               each photo's position is independent of every other photo */
-            object-position: var(--img-x, 50%) var(--img-y, 50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 1;
-        }
-        .img-frame .frame-img.loaded { opacity: 1; }
-        .img-frame .frame-ph {
-            position: absolute; inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #b8a898;
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            border: 1.5px dashed #ccc4b4;
-        }
-        .img-frame.loaded .frame-ph { display: none; }
-
-        /* ══════════════════════════════
-           EVENT CARD
-           To copy-paste a new event into the archived section,
-           copy one full .event-card block and paste it inside
-           #archived-list. The card will automatically be styled
-           as archived (full color, no action buttons needed).
-        ══════════════════════════════ */
-        .event-card {
+        .mv-card {
             background: #fff;
             border: 1px solid var(--border);
-            border-left: 4px solid var(--saffron);
             border-radius: 2px;
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            overflow: hidden;
-            margin-bottom: 24px;
-            transition: box-shadow 0.25s;
+            padding: 38px 36px;
         }
-        .event-card:hover { box-shadow: 0 8px 30px rgba(28,43,74,0.1); }
-
-        /* Cards inside #archived-list get the navy accent */
-        #archived-list .event-card { border-left-color: var(--navy); }
-
-        .event-img-frame { min-height: 260px; }
-
-        .event-body {
-            padding: 28px 32px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .event-tag {
+        .mv-card.mission { border-top: 4px solid var(--saffron); }
+        .mv-card.vision   { border-top: 4px solid var(--green); }
+        .mv-label {
             display: inline-block;
             font-family: 'Mukta', sans-serif;
-            font-size: 0.68rem;
+            font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1.2px;
             padding: 4px 12px;
             border-radius: 2px;
-            margin-bottom: 14px;
             color: #fff;
-            width: fit-content;
+            margin-bottom: 16px;
         }
-        .event-tag.current  { background: var(--saffron); }
-        .event-tag.archived { background: var(--navy); }
-
-        .event-body h3 {
-            font-size: 1.6rem;
-            color: var(--navy);
-            margin-bottom: 12px;
-        }
-        .event-body p {
-            color: var(--muted);
-            font-size: 0.94rem;
-            line-height: 1.72;
-        }
-        .event-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0;
-            margin-top: 18px;
-            font-size: 0.82rem;
-            color: #aaa;
-            font-family: 'Mukta', sans-serif;
-        }
-        .event-meta span {
-            padding-right: 14px;
-            margin-right: 14px;
-            border-right: 1px solid var(--border);
-        }
-        .event-meta span:last-child { border-right: none; padding-right: 0; margin-right: 0; }
+        .mv-card.mission .mv-label { background: var(--saffron); }
+        .mv-card.vision .mv-label   { background: var(--green); }
+        .mv-card h2 { font-size: 1.6rem; color: var(--navy); margin-bottom: 12px; }
+        .mv-card p  { color: var(--muted); font-size: 0.97rem; line-height: 1.75; }
 
         /* ══════════════════════════════
-           ARCHIVED DROPDOWN
-           Collapsed by default. Click to expand.
-           Events inside show in full color.
+           WHAT WE DO
         ══════════════════════════════ */
-        .archive-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 18px 26px;
-            background: var(--navy);
+        .do-section {
+            background: var(--cream-dk);
+            padding: 48px 40px;
+        }
+        .section-head { text-align: center; margin-bottom: 32px; }
+        .section-head h2 { font-size: 2.1rem; color: var(--navy); margin-bottom: 8px; }
+        .section-head .rule-tri { margin: 12px auto 0; }
+
+        .do-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+        }
+        .do-card {
+            background: #fff;
+            border: 1px solid var(--border);
             border-radius: 2px;
-            margin-top: 56px;
-            cursor: pointer;
-            user-select: none;
-            transition: background 0.2s;
+            padding: 28px 24px;
+            transition: box-shadow 0.25s, transform 0.25s;
         }
-        .archive-bar:hover { background: #243760; }
-
-        .archive-bar-left { display: flex; align-items: center; gap: 16px; }
-
-        .archive-bar h2 {
-            font-size: 1.5rem;
-            color: #fff;
+        .do-card:hover { box-shadow: 0 10px 30px rgba(28,43,74,0.1); transform: translateY(-3px); }
+        .do-card:nth-child(1) { border-top: 3px solid var(--saffron); }
+        .do-card:nth-child(2) { border-top: 3px solid var(--green); }
+        .do-card:nth-child(3) { border-top: 3px solid var(--gold); }
+        .do-card:nth-child(4) { border-top: 3px solid var(--navy); }
+        .do-num {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.9rem;
+            font-weight: 400;
+            color: var(--navy);
+            opacity: 0.22;
+            line-height: 1;
+            margin-bottom: 14px;
+            display: block;
         }
-        .archive-count {
-            background: rgba(255,255,255,0.12);
-            color: rgba(255,255,255,0.75);
+        .do-card h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: 10px; font-weight: 600; }
+        .do-card p  { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+        /* ══════════════════════════════
+           GET INVOLVED CTA
+        ══════════════════════════════ */
+        .cta-band {
+            background: #fff;
+            border-top: 3px solid var(--green);
+            padding: 48px 40px;
+            text-align: center;
+        }
+        .cta-band-inner { max-width: 680px; margin: 0 auto; }
+        .cta-band h2 { font-size: 2rem; color: var(--navy); margin-bottom: 18px; }
+        .cta-band p  { color: var(--muted); font-size: 0.98rem; line-height: 1.8; margin-bottom: 18px; }
+        .cta-band a.inline-link { color: var(--saffron); font-weight: 600; text-decoration: underline; }
+        .cta-band a.inline-link:hover { color: var(--saffron-lt); }
+
+        .btn {
+            display: inline-block;
             font-family: 'Mukta', sans-serif;
-            font-size: 0.75rem;
+            font-size: 0.82rem;
             font-weight: 700;
-            padding: 3px 12px;
-            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 28px;
+            border-radius: 2px;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            margin-top: 10px;
         }
-        .archive-chevron {
-            color: rgba(255,255,255,0.5);
-            font-size: 0.9rem;
-            transition: transform 0.25s;
-            font-style: normal;
-            font-family: 'Mukta', sans-serif;
-        }
-        .archive-chevron.open { transform: rotate(180deg); }
-
-        /* Hidden by default — toggled open by JS */
-        #archived-list {
-            display: none;
-            margin-top: 24px;
-        }
-        #archived-list.open { display: block; }
+        .btn-saffron { background: var(--saffron); color: #fff; }
+        .btn-saffron:hover { background: var(--saffron-lt); }
 
         /* ══════════════════════════════
            FOOTER
@@ -456,7 +384,6 @@
             font-size: 1.05rem;
             font-weight: 600;
             margin-bottom: 16px;
-            letter-spacing: 0.5px;
         }
         .footer-col a, .footer-col p {
             display: block;
@@ -497,11 +424,12 @@
         /* ══════════════════════════════
            RESPONSIVE
         ══════════════════════════════ */
-        @media (max-width: 900px) {
-            .event-card { grid-template-columns: 1fr; border-left: none; border-top: 4px solid var(--saffron); }
-            #archived-list .event-card { border-top-color: var(--navy); }
-            .event-img-frame { min-height: 220px; }
+        @media (max-width: 1000px) {
+            .mv-section { grid-template-columns: 1fr; }
+            .do-grid { grid-template-columns: repeat(2, 1fr); }
             .footer-inner { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 900px) {
             .nav-toggle { display: flex; }
             .nav-drawer {
                 position: fixed;
@@ -535,50 +463,20 @@
             }
             .nav-close-btn:hover { color: #fff; }
         }
-
         @media (max-width: 768px) {
             .topbar { flex-direction: column; gap: 2px; padding: 7px 20px; text-align: center; font-size: 0.72rem; }
             .nav-inner { padding: 0 20px; }
             .page-header { padding: 44px 24px; }
             .page-header h1 { font-size: 2.1rem; }
-            .page-body { padding: 40px 18px 60px; }
+            .do-grid { grid-template-columns: 1fr; }
+            .do-section { padding: 36px 20px; }
+            .cta-band { padding: 36px 20px; }
             .footer-inner { grid-template-columns: 1fr; }
             .footer-divider { flex-direction: column; gap: 6px; text-align: center; }
         }
     </style>
 </head>
 <body>
-
-<!-- ══════════════════════════════════════════════════════════
-     IMAGE POSITION CONTROLS — READ ME FIRST
-
-     Every photo on this page loads from the local "images" folder
-     (next to this HTML file) — nothing pulls from imgur anymore.
-     To add or swap a photo: save the file into "images" with the
-     name shown in the src="" attribute, e.g. src="images/lohri-2026.jpg"
-     means the file must be named "lohri-2026.jpg" inside images.
-
-     Each <img> tag also has a style="--img-x: 50%; --img-y: 50%;"
-     attribute. These two numbers control WHERE the photo is
-     positioned inside its frame — use them if the photo gets
-     cropped in a way you don't like (e.g. a face gets cut off).
-
-       --img-x   moves the visible crop LEFT / RIGHT
-                   0%   = show the far LEFT edge of the photo
-                   50%  = centered (default)
-                   100% = show the far RIGHT edge of the photo
-
-       --img-y   moves the visible crop UP / DOWN
-                   0%   = show the very TOP of the photo
-                   50%  = centered (default)
-                   100% = show the very BOTTOM of the photo
-
-     Example — to shift a photo up and slightly left:
-         style="--img-x: 40%; --img-y: 20%;"
-
-     Each image's --img-x / --img-y is independent — changing one
-     photo's position never affects any other photo on this page.
-══════════════════════════════════════════════════════════ -->
 
 <!-- TOPBAR -->
 <div class="topbar">
@@ -614,9 +512,9 @@
             <button class="nav-close-btn" onclick="closeNav()" aria-label="Close">&times;</button>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
+                <li><a href="about.html" class="active">About</a></li>
                 <li><a href="committee.html">Committee</a></li>
-                <li><a href="events.html" class="active">Events</a></li>
+                <li><a href="events.html">Events</a></li>
                 <li><a href="sponsors.html">Sponsors</a></li>
                 <li><a href="donate.html">Donate</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -629,172 +527,70 @@
 <!-- PAGE HEADER -->
 <div class="page-header">
     <div class="page-header-inner">
-        <div class="breadcrumb"><a href="index.html">Home</a> &rsaquo; Events</div>
-        <h1>Events</h1>
-        <p>Celebrating culture, community, and connection throughout the year.</p>
+        <div class="breadcrumb"><a href="index.html">Home</a> &rsaquo; About</div>
+        <h1>About PAJI</h1>
+        <p>Our story, mission, and the community we serve.</p>
     </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     MAIN CONTENT
-══════════════════════════════════════════════════════════ -->
-<div class="page-body">
+<!-- INTRO -->
+<div class="intro">
+    <p>The <strong>Punjabi Association of Jacksonville (PAJI)</strong> is a non-profit community organization dedicated to preserving, promoting, and celebrating the rich heritage, traditions, and vibrant spirit of Punjab in Northeast Florida. We serve as a cultural bridge, connecting families, empowering youth, and creating a warm, inclusive home for the local Punjabi community.</p>
+</div>
 
-    <!-- ══════════════════════════════
-         CURRENT EVENT
-         Only one event is shown here at a time.
-         When this event is over, copy the entire .event-card block
-         below and paste it inside #archived-list further down,
-         then replace this card's content with the new event.
-
-         Save the event photo as images/mela-2026.jpg
-    ══════════════════════════════ -->
-    <div class="section-label">
-        <h2>Current Event</h2>
-        <span class="label-tag current">Upcoming</span>
+<!-- MISSION / VISION -->
+<section class="mv-section">
+    <div class="mv-card mission">
+        <span class="mv-label">Our Mission</span>
+        <h2>Unite, Support, Serve</h2>
+        <p>To unite, support, and serve the Punjabi community in Jacksonville by promoting our cultural heritage, fostering meaningful connections, and creating inclusive platforms for artistic, social, and youth engagement.</p>
     </div>
-    <hr class="section-divider">
+    <div class="mv-card vision">
+        <span class="mv-label">Our Vision</span>
+        <h2>A Thriving Legacy</h2>
+        <p>To build a vibrant, connected, and culturally rich community where Punjabi traditions thrive across generations, and where our heritage contributes positively to the diverse cultural tapestry of Jacksonville.</p>
+    </div>
+</section>
 
-    <div class="event-card">
-        <div class="img-frame event-img-frame">
-            <img src="images/mela-2026.jpg" alt="4th Annual Punjabi Mela" class="frame-img"
-                 style="--img-x: 50%; --img-y: 50%;"
-                 onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
-                 onerror="this.remove()">
-            <div class="frame-ph">Event Image</div>
+<!-- WHAT WE DO -->
+<section class="do-section">
+    <div class="section-head">
+        <h2>What We Do</h2>
+        <div class="rule-tri"><span></span><span></span><span></span></div>
+    </div>
+    <div class="do-grid">
+        <div class="do-card">
+            <span class="do-num">01</span>
+            <h3>Cultural Celebrations &amp; Events</h3>
+            <p>Organize landmark annual festivals — such as Punjabi Mela, Teeyan Da Mela, cultural Galas, and seasonal celebrations — featuring traditional folk dances (Giddha &amp; Bhangra), live music, and authentic cuisine.</p>
         </div>
-        <div class="event-body">
-            <span class="event-tag current">Upcoming</span>
-            <h3>4th Annual Punjabi Mela</h3>
-            <p>Join us for the 4th Annual Punjabi Mela — a grand celebration of Punjabi culture, community, and togetherness. Enjoy live Bhangra and Giddha performances, authentic Punjabi cuisine, cultural exhibitions, and activities for the entire family. This is our biggest event of the year, bringing Jacksonville's Punjabi community together for an unforgettable evening.</p>
-            <div class="event-meta">
-                <span>April 13, 2026</span>
-                <span>Community Center, Jacksonville</span>
-                <span>5:00 PM &ndash; 10:00 PM</span>
-            </div>
+        <div class="do-card">
+            <span class="do-num">02</span>
+            <h3>Youth &amp; Cultural Preservation</h3>
+            <p>Provide opportunities for children and young adults to learn, showcase, and take pride in Punjabi music, arts, language, and heritage.</p>
+        </div>
+        <div class="do-card">
+            <span class="do-num">03</span>
+            <h3>Community Connection &amp; Support</h3>
+            <p>Create welcoming spaces for families, newcomers, and long-term residents to network, share resources, and support one another.</p>
+        </div>
+        <div class="do-card">
+            <span class="do-num">04</span>
+            <h3>Social &amp; Charitable Outreach</h3>
+            <p>Engage in local community service initiatives, fostering strong relationships within the broader Jacksonville area.</p>
         </div>
     </div>
+</section>
 
-
-    <!-- ══════════════════════════════
-         ARCHIVED EVENTS
-         Collapsed by default. Click the bar to expand.
-
-         HOW TO ARCHIVE AN EVENT:
-         1. When an event is over, copy its .event-card block
-            from the "Current Event" section above.
-         2. Paste it at the TOP of the list inside #archived-list below.
-         3. Change the event-tag class from "current" to "archived"
-            and update the tag text to "Past Event".
-         4. Replace the Current Event section with your new event.
-
-         Cards inside this section automatically display in full color.
-    ══════════════════════════════ -->
-    <div class="archive-bar" onclick="toggleArchive()" id="archiveBar">
-        <div class="archive-bar-left">
-            <h2>Past Events</h2>
-            <span class="archive-count" id="archiveCount">4</span>
-        </div>
-        <i class="archive-chevron" id="archiveChevron">&#9660;</i>
+<!-- GET INVOLVED -->
+<div class="cta-band">
+    <div class="cta-band-inner">
+        <h2>Get Involved &amp; Join Hands With Us!</h2>
+        <p>PAJI is driven by the passion and dedication of our community. If you are interested in volunteering, joining hands with us, or taking an active role in planning future events and initiatives, we would love to have you on board!</p>
+        <p>Whether you want to lend a hand behind the scenes, share a talent, or help us grow, your support makes all the difference. Reach out to any of our <a href="committee.html" class="inline-link">board members</a> or contact us directly at <a href="mailto:paji4jax@gmail.com" class="inline-link">paji4jax@gmail.com</a> to get involved today!</p>
+        <a href="contact.html" class="btn btn-saffron">Contact Us</a>
     </div>
-
-    <div id="archived-list">
-
-        <!-- ── ARCHIVED EVENT ──────────────────────────────────────
-             HOW TO ARCHIVE AN EVENT:
-             1. Copy the current .event-card block from the top section.
-             2. Paste it at the TOP of this list.
-             3. Change event-tag class "current" → "archived" and text to "Past Event".
-             4. Add img src="images/your-event-photo.jpg" to the img tag.
-             5. Update the Current Event section with the new event.
-             (Each photo also has its own --img-x / --img-y position
-             controls — see "IMAGE POSITION CONTROLS" near <body>.)
-        ──────────────────────────────────────────────────────────── -->
-
-        <!-- Punjabi Lohri 2026 — save event photo as images/lohri-2026.jpg -->
-        <div class="event-card">
-            <div class="img-frame event-img-frame">
-                <img src="images/lohri-2026.jpg" alt="Punjabi Lohri 2026" class="frame-img"
-                     style="--img-x: 50%; --img-y: 50%;"
-                     onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
-                     onerror="this.remove()">
-                <div class="frame-ph">Image</div>
-            </div>
-            <div class="event-body">
-                <span class="event-tag archived">Past Event</span>
-                <h3>Punjabi Lohri 2026</h3>
-                <p>The festival of harvest was celebrated with a traditional bonfire, rewri, popcorn, and joyful Lohri songs. Families gathered for an evening of warmth, festivity, and community spirit marking the arrival of longer days.</p>
-                <div class="event-meta">
-                    <span>January 2026</span>
-                    <span>Jacksonville, FL</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- New Year's Eve Celebration 2026 — save event photo as images/nye-2026.jpg -->
-        <div class="event-card">
-            <div class="img-frame event-img-frame">
-                <img src="images/nye-2026.jpg" alt="New Year's Eve Celebration 2026" class="frame-img"
-                     style="--img-x: 50%; --img-y: 50%;"
-                     onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
-                     onerror="this.remove()">
-                <div class="frame-ph">Image</div>
-            </div>
-            <div class="event-body">
-                <span class="event-tag archived">Past Event</span>
-                <h3>New Year's Eve Celebration 2026</h3>
-                <p>PAJI rang in the New Year in style with a lively evening of music, cultural performances, and a festive dinner. The community came together to celebrate new beginnings surrounded by the warmth of family and friends.</p>
-                <div class="event-meta">
-                    <span>December 2025</span>
-                    <span>Jacksonville, FL</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Pre-Karwa Chauth Celebration 2025 — save event photo as images/karwa-chauth-2025.jpg -->
-        <div class="event-card">
-            <div class="img-frame event-img-frame">
-                <img src="images/karwa-chauth-2025.jpg" alt="Pre-Karwa Chauth Celebration 2025" class="frame-img"
-                     style="--img-x: 50%; --img-y: 50%;"
-                     onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
-                     onerror="this.remove()">
-                <div class="frame-ph">Image</div>
-            </div>
-            <div class="event-body">
-                <span class="event-tag archived">Past Event</span>
-                <h3>Pre-Karwa Chauth Celebration 2025</h3>
-                <p>Our annual Pre-Karwa Chauth gathering brought together the women of our community for an afternoon of mehendi, thali preparation, and traditional songs — honoring devotion, friendship, and Punjabi culture.</p>
-                <div class="event-meta">
-                    <span>October 2025</span>
-                    <span>Jacksonville, FL</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3rd Punjabi Mela 2025 — save event photo as images/mela-2025.jpg -->
-        <div class="event-card">
-            <div class="img-frame event-img-frame">
-                <img src="images/mela-2025.jpg" alt="3rd Punjabi Mela 2025" class="frame-img"
-                     style="--img-x: 50%; --img-y: 50%;"
-                     onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
-                     onerror="this.remove()">
-                <div class="frame-ph">Image</div>
-            </div>
-            <div class="event-body">
-                <span class="event-tag archived">Past Event</span>
-                <h3>3rd Punjabi Mela 2025</h3>
-                <p>The 3rd Annual Punjabi Mela was our grandest event of the year — featuring live Bhangra and Giddha performances, a vibrant food bazaar, cultural exhibitions, and activities for the entire family. Jacksonville's Punjabi community came together in full celebration.</p>
-                <div class="event-meta">
-                    <span>April 2025</span>
-                    <span>Jacksonville, FL</span>
-                    <span>800+ Attendees</span>
-                </div>
-            </div>
-        </div>
-
-    </div><!-- /#archived-list -->
-
-</div><!-- /.page-body -->
+</div>
 
 <!-- FOOTER -->
 <footer class="footer">
@@ -843,7 +639,6 @@
 </footer>
 
 <script>
-    /* ── Hamburger nav ── */
     document.getElementById('navToggle').addEventListener('click', function () {
         document.getElementById('navDrawer').classList.add('open');
         document.getElementById('navBackdrop').classList.add('open');
@@ -854,22 +649,6 @@
         document.getElementById('navBackdrop').classList.remove('open');
         document.body.style.overflow = '';
     }
-
-    /* ── Archive toggle ──
-       Collapsed by default. Click the bar to expand/collapse.
-       The count badge shows how many past events are in the list. */
-    function toggleArchive() {
-        const list    = document.getElementById('archived-list');
-        const chevron = document.getElementById('archiveChevron');
-        const isOpen  = list.classList.toggle('open');
-        chevron.classList.toggle('open', isOpen);
-    }
-
-    /* Keep the count badge accurate automatically */
-    (function updateCount() {
-        const cards = document.querySelectorAll('#archived-list .event-card').length;
-        document.getElementById('archiveCount').textContent = cards;
-    })();
 </script>
 
 </body>
