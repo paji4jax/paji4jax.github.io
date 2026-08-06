@@ -215,18 +215,19 @@
             background: var(--navy-dark);
         }
 
-        /* Banner image. Position is controlled per-image — see the
+        /* Banner carousel — 5 stacked photos that crossfade automatically.
+           Position of each is controlled independently — see the
            "IMAGE POSITION CONTROLS" comment near the top of <body>. */
-        .hero-img {
+        .hero-slide {
             position: absolute; inset: 0;
             width: 100%; height: 100%;
             object-fit: cover;
             object-position: var(--img-x, 50%) var(--img-y, 50%);
             z-index: 1;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 1.4s ease;
         }
-        .hero-img.loaded { opacity: 1; }
+        .hero-slide.loaded.active { opacity: 1; }
 
         /* Gradient at bottom for signature/scroll-indicator legibility */
         .hero-vignette {
@@ -872,20 +873,53 @@
 </nav>
 
 <!-- ══════════════════════════════════════════════════════════
-     HERO — full-bleed image, no text overlay
-     Save the banner photo as images/hero-banner.jpg
-     To reposition it, edit --img-x / --img-y on the <img> below.
+     HERO — full-bleed carousel, no text overlay
+     5 photos crossfade automatically every 6 seconds. Save them as
+     images/hero-1.jpg through images/hero-5.jpg. To reposition any
+     one of them, edit its own --img-x / --img-y below.
      To resize the box (height only — this banner is full-width
      by design), edit --frame-h on this <section> tag.
      See the "IMAGE POSITION / BOX SIZE CONTROLS" comment above <body>.
 ══════════════════════════════════════════════════════════ -->
 <section class="hero" style="--frame-h: 92vh;">
     <img
-        src="images/hero-banner.jpg"
+        src="images/hero-1.jpg"
         alt=""
-        class="hero-img"
+        class="hero-slide active"
         style="--img-x: 50%; --img-y: 50%;"
         fetchpriority="high"
+        decoding="async"
+        onload="this.classList.add('loaded')"
+        onerror="this.remove()">
+    <img
+        src="images/hero-2.jpg"
+        alt=""
+        class="hero-slide"
+        style="--img-x: 50%; --img-y: 50%;"
+        decoding="async"
+        onload="this.classList.add('loaded')"
+        onerror="this.remove()">
+    <img
+        src="images/hero-3.jpg"
+        alt=""
+        class="hero-slide"
+        style="--img-x: 50%; --img-y: 50%;"
+        decoding="async"
+        onload="this.classList.add('loaded')"
+        onerror="this.remove()">
+    <img
+        src="images/hero-4.jpg"
+        alt=""
+        class="hero-slide"
+        style="--img-x: 50%; --img-y: 50%;"
+        decoding="async"
+        onload="this.classList.add('loaded')"
+        onerror="this.remove()">
+    <img
+        src="images/hero-5.jpg"
+        alt=""
+        class="hero-slide"
+        style="--img-x: 50%; --img-y: 50%;"
         decoding="async"
         onload="this.classList.add('loaded')"
         onerror="this.remove()">
@@ -1013,18 +1047,41 @@
 </section>
 
 <!-- FEATURED EVENT
-     Placeholder shown while the next event is being planned.
-     When a new event is confirmed, replace the .event-placeholder
-     block below with a .featured-event card (see events.html for
-     the exact markup to copy). -->
+     Only 1 event shown here at a time.
+     Update the content below when the current event changes
+     (or swap back to the .event-placeholder pattern — see events.html —
+     when nothing is confirmed yet).
+     Save the event photo as images/gala-2026.jpg -->
 <section class="events-preview">
     <div class="events-preview-inner">
         <div class="events-head">
             <h2>Upcoming Event</h2>
             <a href="events.html">View all &amp; past events &rarr;</a>
         </div>
-        <div class="event-placeholder">
-            <p>Details Coming Soon</p>
+        <!-- --img-x / --img-y (on the <img>) move the photo within its box.
+             --frame-w (BOX WIDTH) goes on this .featured-event <div> —
+             it's really the grid's first column width.
+             --frame-h (BOX HEIGHT) goes on the .fe-img-frame <div> below. -->
+        <div class="featured-event" style="--frame-w: 420px;">
+            <div class="img-frame fe-img-frame" style="--frame-h: 320px;">
+                <img src="images/gala-2026.jpg" alt="Punjabi Gala 2026" class="frame-img"
+                     style="--img-x: 50%; --img-y: 50%;"
+                     loading="lazy" decoding="async"
+                     onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
+                     onerror="this.remove()">
+                <div class="frame-ph">Event Image</div>
+            </div>
+            <div class="fe-body">
+                <span class="fe-tag">Upcoming &mdash; December 2026</span>
+                <h3>Punjabi Gala 2026</h3>
+                <p>Join us for an elegant evening celebrating Punjabi culture, community, and togetherness — featuring fine dining, live entertainment, and heartfelt recognition of the people who make PAJI possible.</p>
+                <div class="fe-meta">
+                    <span>December 5, 2026</span>
+                    <span>Jacksonville, FL</span>
+                </div>
+                <a href="events.html" class="btn btn-saffron">Full Event Details</a>
+                <p class="fe-note">One event is featured at a time. View the full archive on the Events page.</p>
+            </div>
         </div>
     </div>
 </section>
@@ -1087,6 +1144,20 @@
         document.getElementById('navBackdrop').classList.remove('open');
         document.body.style.overflow = '';
     }
+
+    /* Hero carousel — crossfades through the 5 banner photos on a timer.
+       Works fine on mobile: it's just a class toggle + CSS opacity
+       transition, no touch/drag handling needed. */
+    (function () {
+        var slides = document.querySelectorAll('.hero-slide');
+        if (slides.length < 2) return;
+        var current = 0;
+        setInterval(function () {
+            slides[current].classList.remove('active');
+            current = (current + 1) % slides.length;
+            slides[current].classList.add('active');
+        }, 6000);
+    })();
 </script>
 
 </body>

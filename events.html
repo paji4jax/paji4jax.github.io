@@ -664,10 +664,13 @@
 
     <!-- ══════════════════════════════
          CURRENT EVENT
-         Placeholder shown while the next event is being planned.
-         When a new event is confirmed, replace the .event-placeholder
-         block below with an .event-card (see the archived cards further
-         down for the exact markup to copy).
+         Only one event is shown here at a time.
+         When this event is over, copy the entire .event-card block
+         below and paste it inside #archived-list further down,
+         then replace this card's content with the new event
+         (or with the .event-placeholder block if none is confirmed yet).
+
+         Save the event photo as images/gala-2026.jpg
     ══════════════════════════════ -->
     <div class="section-label">
         <h2>Current Event</h2>
@@ -675,8 +678,23 @@
     </div>
     <hr class="section-divider">
 
-    <div class="event-placeholder">
-        <p>Details Coming Soon</p>
+    <div class="event-card">
+        <div class="img-frame event-img-frame">
+            <img src="images/gala-2026.jpg" alt="Punjabi Gala 2026" class="frame-img"
+                 style="--img-x: 50%; --img-y: 50%;"
+                 onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
+                 onerror="this.remove()">
+            <div class="frame-ph">Event Image</div>
+        </div>
+        <div class="event-body">
+            <span class="event-tag current">Upcoming</span>
+            <h3>Punjabi Gala 2026</h3>
+            <p>Join us for an elegant evening celebrating Punjabi culture, community, and togetherness — featuring fine dining, live entertainment, and heartfelt recognition of the people who make PAJI possible.</p>
+            <div class="event-meta">
+                <span>December 5, 2026</span>
+                <span>Jacksonville, FL</span>
+            </div>
+        </div>
     </div>
 
 
@@ -697,7 +715,7 @@
     <div class="archive-bar" onclick="toggleArchive()" id="archiveBar">
         <div class="archive-bar-left">
             <h2>Past Events</h2>
-            <span class="archive-count" id="archiveCount">5</span>
+            <span class="archive-count" id="archiveCount">6</span>
         </div>
         <i class="archive-chevron" id="archiveChevron">&#9660;</i>
     </div>
@@ -714,6 +732,27 @@
              (Each photo also has its own --img-x / --img-y position
              controls — see "IMAGE POSITION CONTROLS" near <body>.)
         ──────────────────────────────────────────────────────────── -->
+
+        <!-- Teeyan 2026 — save event photo as images/teeyan-2026.jpg -->
+        <div class="event-card">
+            <div class="img-frame event-img-frame">
+                <img src="images/teeyan-2026.jpg" alt="Teeyan 2026" class="frame-img"
+                     style="--img-x: 50%; --img-y: 50%;"
+                     loading="lazy" decoding="async"
+                     onload="this.classList.add('loaded'); this.closest('.img-frame').classList.add('loaded')"
+                     onerror="this.remove()">
+                <div class="frame-ph">Image</div>
+            </div>
+            <div class="event-body">
+                <span class="event-tag archived">Past Event</span>
+                <h3>Teeyan 2026</h3>
+                <p>A joyful celebration of Teeyan, the traditional Punjabi festival honoring the monsoon season — featuring Giddha, folk music, and community fellowship.</p>
+                <div class="event-meta">
+                    <span>August 1, 2026</span>
+                    <span>The Link, Nocatee</span>
+                </div>
+            </div>
+        </div>
 
         <!-- 4th Annual Punjabi Mela — save event photo as images/mela-2026.jpg -->
         <div class="event-card">
